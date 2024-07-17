@@ -1,7 +1,7 @@
 # Consciousness Illumes
-Consciousness Illumes is a project which aims to unify explorations and observations of consciousness. The project is currently founded as a website, as it is intended to be accessible to a broad audience.  
+Consciousness Illumes is a project which aims to unify observations, contemplations, explorations, and investigations of consciousness. The project is currently founded as a website, as it is intended to be accessible to a broad audience.  
 
-Consciousness Illumes is built on the values of... 
+Consciousness Illumes is built on the values of... Openness, interdisciplinary, connection and sharing, community. 
 
 # Intentions
 - Definition: what specifically does "consciousness" refer to and entail? It is necessary to provide a base point of reference (or multiple, potential base points of reference) to come back to when discussing topics about consciousness
