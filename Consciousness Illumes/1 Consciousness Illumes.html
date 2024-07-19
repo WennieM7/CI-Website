@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consciousness Illumes</title>
+    <style>
+        body {
+            display: flex;
+            background-color:rgb(31, 142, 129);
+            flex-direction: column;
+            align-items: center;
+            justify content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(168, 229, 222); 
+            padding: 10px;
+            width: 100%;
+            height: 20px;
+            border-bottom: 2px solid black;
+        }
+        .content-container {
+            border-radius: 10px; /* Rounded edges */
+            background-color: rgb(168, 229, 222);
+            text-align: center;
+            padding: 20px;
+            margin: 20px;
+            border: 2px solid black;
+        }
+            h4 {
+                margin: 0;
+            }
+
+            canvas {
+                border: 0px solid black; /*optional: add border to canvas */
+            }
+        #controlButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h4><a href="1 Consciousness Illumes.html">Consciousness Illumes</a></h4>
+            <h4><a href="2 Definitions.html">Definitions</a></h4>
+            <h4><a href="3 Research.html">Research</a></h4>
+           <!-- <h4><a href="4 Expressions.html">Expressions</a></h4> -->
+            <h4><a href="5 Neuroscience.html">Neuroscience</a></h4>
+           <!-- <h4><a href="6 Further Reading.html">Further Reading</a></h4> -->
+            <h4><a href="7 Contact.html">Contact</a></h4>
+          </header>   
+        
+        <div class="content-container">
+            <h1>Consciousness Illumes</h1>
+        
+            <canvas id="animationCanvas" width="700" height="500"></canvas> <!-- Canvas for the animation -->
+        </div>
+
+        <button id="controlButton" onclick="toggleAnimation()">Pause</button>
+
+        <script type="text/javascript">
+            var canvas = document.getElementById('animationCanvas');
+            var ctx = canvas.getContext('2d');
+            var animationInterval;
+            var isPlaying = true;
+    
+            function updateCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+    
+                for (var i = 0; i < 100; i++) {
+                    for (var j = 0; j < 100; j++) {
+                        var x = Math.floor(Math.random() * canvas.width);
+                        var y = Math.floor(Math.random() * canvas.height);
+                        var r = Math.floor(Math.random() * 255);
+                        var g = Math.floor(Math.random() * 255);
+                        var b = Math.floor(Math.random() * 255);
+    
+                        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+                        ctx.beginPath();
+                        ctx.arc(x, y, 2, 0, Math.PI * 2); // Draw small circles for animation
+                        ctx.fill();                    
+                    }
+                }
+            }
+
+            function toggleAnimation() {
+                if (isPlaying) {
+                    clearInterval(animationInterval);
+                    document.getElementById('controlButton').innerText = 'Play';
+                } else {
+                    animationInterval = setInterval(updateCanvas, 100); // Update canvas every 100 milliseconds
+                    document.getElementById('controlButton').innerText = 'Pause';
+                }
+                isPlaying = !isPlaying;
+            }
+            animationInterval = setInterval(updateCanvas, 100); // Start the animation
+        </script>
+    </body>
+    </html>
