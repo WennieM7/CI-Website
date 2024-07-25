@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify content: center;
+            margin: 0.3%;
+            padding: 0.2%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(168, 229, 222); 
+            padding: 10px;
+            width: 98%;
+            height: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        header a {
+            text-decoration: none;
+            color: #07198b;
+        }
+        .content-container {
+            background-color: rgb(168, 229, 222);
+            color: #07198b;
+            text-align: center;
+            padding: 20px;
+            margin: 20px;
+        }
+        .content-container a {
+            color: #07198b;
+        }
+        h4 {
+            margin: 0;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure the canvas is behind other elements */
+        }
+        #controlButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="animationCanvas"></canvas>
+
+    <header>
+        <h4><a href="1 Consciousness Illumes.html">Source</a></h4>
+        <h4><a href="2 Definitions.html">Definitions</a></h4>
+        <h4><a href="3 Research.html">Research</a></h4>
+        <!-- <h4><a href="4 Expressions.html">Expressions</a></h4> -->
+        <h4><a href="5 Neuroscience.html">Neuroscience</a></h4>
+        <!-- <h4><a href="6 Further Reading.html">Further Reading</a></h4> -->
+        <h4><a href="7 Contact.html">Contact</a></h4>
+    </header>   
+
+     <div class="content-container">
+        <h1>Contact</h1>
+        <p><b>Send an email: </b><a href="mailto:c.illumes@gmail.com">c.illumes@gmail.com</a></p>
+     </div>
+
+     <button id="controlButton" onclick="toggleAnimation()">❚❚</button>
+
+     <script type="text/javascript">
+        var canvas = document.getElementById('animationCanvas');
+        var ctx = canvas.getContext('2d');
+        var animationInterval;
+        var isPlaying = true;
+  
+        function updateCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+  
+            for (var i = 0; i < 100; i++) {
+                for (var j = 0; j < 100; j++) {
+                    var x = Math.floor(Math.random() * canvas.width);
+                    var y = Math.floor(Math.random() * canvas.height);
+                    var r = Math.floor(Math.random() * 255);
+                    var g = Math.floor(Math.random() * 255);
+                    var b = Math.floor(Math.random() * 255);
+  
+                    ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2, 0, Math.PI * 2); // Draw small circles for animation
+                    ctx.fill();                    
+                }
+            }
+        }
+  
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+  
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Set initial canvas size
+
+        function toggleAnimation() {
+                if (isPlaying) {
+                    clearInterval(animationInterval);
+                    document.getElementById('controlButton').innerText = '▶';
+                } else {
+                    animationInterval = setInterval(updateCanvas, 100); // Update canvas every 100 milliseconds
+                    document.getElementById('controlButton').innerText = '❚❚';
+                }
+                isPlaying = !isPlaying;
+            }
+            animationInterval = setInterval(updateCanvas, 100); // Start the animation
+        </script>
+</body>
+</html>

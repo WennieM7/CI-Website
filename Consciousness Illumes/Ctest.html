@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Consciousness Illumes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(168, 229, 222); 
+            padding: 10px;
+            width: 98%;
+            height: 20px;
+        }
+        .content-container {
+            background-color: rgb(168, 229, 222);
+            text-align: center;
+            padding: 5px;
+            width: 96%;
+            margin: 10px;
+            flex: 1; /* Make it flexible */
+            position: relative;
+        }
+        h4 {
+            margin: 0;
+        }
+        #controlButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #animationCanvas {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h4><a href="1 Consciousness Illumes.html">Consciousness Illumes</a></h4>
+        <h4><a href="2 Definitions.html">Compendium</a></h4>
+        <h4><a href="3 Research.html">Research</a></h4>
+        <h4><a href="5 Neuroscience.html">Neuroscience</a></h4>
+        <h4><a href="7 Contact.html">Contact</a></h4>
+    </header>   
+    <div class="content-container">
+        <h1>Consciousness Illumes</h1>
+        <canvas id="animationCanvas"></canvas> <!-- Canvas for the animation -->
+    </div>
+    <button id="controlButton" onclick="toggleAnimation()">❚❚</button>
+    <script type="text/javascript">
+        var canvas = document.getElementById('animationCanvas');
+        var ctx = canvas.getContext('2d');
+        var animationInterval;
+        var isPlaying = true;
+
+        function resizeCanvas() {
+            var contentContainer = document.querySelector('.content-container');
+            var scaleFactor = window.devicePixelRatio || 1;
+
+            // Adjust the canvas dimensions for high DPI screens
+            canvas.width = contentContainer.clientWidth * scaleFactor;
+            canvas.height = contentContainer.clientHeight * scaleFactor;
+
+            // Set the canvas style dimensions
+            canvas.style.width = contentContainer.clientWidth + 'px';
+            canvas.style.height = contentContainer.clientHeight + 'px';
+
+            // Reset the transform matrix to scale the context
+            ctx.setTransform(scaleFactor, 0, 0, scaleFactor, 0, 0);
+        }
+
+        function updateCanvas() {
+            var width = canvas.width / (window.devicePixelRatio || 1);
+            var height = canvas.height / (window.devicePixelRatio || 1);
+            
+            ctx.clearRect(0, 0, width, height); // Clear canvas
+            
+            for (var i = 0; i < 100; i++) {
+                for (var j = 0; j < 100; j++) {
+                    var x = Math.floor(Math.random() * width);
+                    var y = Math.floor(Math.random() * height);
+                    var r = Math.floor(Math.random() * 255);
+                    var g = Math.floor(Math.random() * 255);
+                    var b = Math.floor(Math.random() * 255);
+                    ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2 / (window.devicePixelRatio || 1), 0, Math.PI * 2); // Draw small circles for animation
+                    ctx.fill();                    
+                }
+            }
+        }
+
+        function toggleAnimation() {
+            if (isPlaying) {
+                clearInterval(animationInterval);
+                document.getElementById('controlButton').innerText = '▶';
+            } else {
+                animationInterval = setInterval(updateCanvas, 100); // Update canvas every 100 milliseconds
+                document.getElementById('controlButton').innerText = '❚❚';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas(); // Initial canvas size
+        animationInterval = setInterval(updateCanvas, 100); // Start the animation
+    </script>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Consciousness Illumes</title>
+    <style>
+        body {
+            display: flex;
+            /* background-color:rgb(250, 252, 252); */
+            flex-direction: column;
+            align-items: center;
+            justify content: center;
+            height: 100vh;
+            margin: 10;
+            padding: 10;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(168, 229, 222); 
+            padding: 10px;
+            width: 98%;
+            height: 20px;
+        }
+        .content-container {
+            background-color: rgb(168, 229, 222);
+            text-align: center;
+            padding: 5px;
+            width: 96%;
+            margin: 10px;
+        }
+            h4 {
+                margin: 0;
+            }
+
+        #controlButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h4><a href="1 Consciousness Illumes.html">Consciousness Illumes</a></h4>
+            <h4><a href="2 Definitions.html">Compendium</a></h4>
+            <h4><a href="3 Research.html">Research</a></h4>
+            <h4><a href="5 Neuroscience.html">Neuroscience</a></h4>
+            <h4><a href="7 Contact.html">Contact</a></h4>
+          </header>   
+        
+        <div class="content-container">
+            <h1>Consciousness Illumes</h1>
+        
+            <canvas id="animationCanvas" width="1200" height="700"></canvas> 
+        </div>
+
+        <button id="controlButton" onclick="toggleAnimation()">Pause</button>
+
+        <script type="text/javascript">
+            var canvas = document.getElementById('animationCanvas');
+            var ctx = canvas.getContext('2d');
+            var animationInterval;
+            var isPlaying = true;
+    
+            function updateCanvas() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+    
+                for (var i = 0; i < 100; i++) {
+                    for (var j = 0; j < 100; j++) {
+                        var x = Math.floor(Math.random() * canvas.width);
+                        var y = Math.floor(Math.random() * canvas.height);
+                        var r = Math.floor(Math.random() * 255);
+                        var g = Math.floor(Math.random() * 255);
+                        var b = Math.floor(Math.random() * 255);
+    
+                        ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+                        ctx.beginPath();
+                        ctx.arc(x, y, 2, 0, Math.PI * 2); // Draw small circles for animation
+                        ctx.fill();                    
+                    }
+                }
+            }
+
+            function toggleAnimation() {
+                if (isPlaying) {
+                    clearInterval(animationInterval);
+                    document.getElementById('controlButton').innerText = 'Play';
+                } else {
+                    animationInterval = setInterval(updateCanvas, 100); // Update canvas every 100 milliseconds
+                    document.getElementById('controlButton').innerText = 'Pause';
+                }
+                isPlaying = !isPlaying;
+            }
+            animationInterval = setInterval(updateCanvas, 100); // Start the animation
+        </script>
+    </body>
+    </html> -->
