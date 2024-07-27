@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Research</title>
+    <style>
+        html, body {
+            height: 99.5%;
+            margin: 0.3%;
+            padding: 0.1%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: rgb(168, 229, 222); 
+            padding: 10px;
+            width: 98%;
+            height: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        header a {
+            text-decoration: none;
+            color: #07198b;
+        }
+        h4 {
+            margin: 0;
+        }
+        .content-container {
+            background-color: white;
+            width: 100%;
+            height: 120px;
+            z-index: 1; /* Ensure content is above the canvas */
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            margin: 0;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            padding: 1%;
+            position: relative;
+            text-align: center;
+            place-items: center;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure the canvas is behind other elements */
+        }
+        #controlButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="animationCanvas"></canvas>
+
+    <div class="content-container">
+        <header>
+            <h4><a href="1 Consciousness Illumes.html">Source</a></h4>
+            <h4><a href="2 Definitions.html">Definitions</a></h4>
+            <h4><a href="3 Research.html">Research</a></h4>
+            <!-- <h4><a href="4 Expressions.html">Expressions</a></h4> -->
+            <h4><a href="5 Neuroscience.html">Neuroscience</a></h4>
+            <!-- <h4><a href="6 Further Reading.html">Further Reading</a></h4> -->
+            <h4><a href="7 Contact.html">Connect</a></h4>
+        </header>  
+        <h1 style="margin-bottom: 0; color: #07198b; text-align: center;">Theories of Consciousness</h1>
+        <!-- <h4 style="margin-bottom: 0; color: #07198b; text-align: center;">*the map is not the territory*</h4> -->
+    </div> 
+    
+    <button id="controlButton" onclick="toggleAnimation()">❚❚</button>
+
+    <div class="container">
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d0c7e; background-color: #f2cae9;">
+            <h3 style="margin-top: 1px;">Absolute Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #d3f032; background-color: #e8edca;">
+            <h3 style="margin-top: 1px;">Attended Intermediate Representation Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+        
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #1d73f4; background-color: #cddef8;">
+          <h3 style="margin-top: 1px;">Attention Schema Theory</h3>
+          <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #1d024e; background-color: #cebfe8;">
+            <h3 style="margin-top: 1px;">Beast Machine Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f7af06; background-color: #e8d098;">
+            <h3 style="margin-top: 1px;">Biological Naturalism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #891df4; background-color: #ddc8f3;">
+            <h3 style="margin-top: 1px;">Conscious Realism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #c69007; background-color: #f5e8c6;">
+            <h3 style="margin-top: 1px;">Dendritic Integration Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+        
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #830303; background-color: #eccdcd;">
+            <h3 style="margin-top: 1px;">Dual-Aspect Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d1fc0; background-color: #e7c6f0;">
+            <h3 style="margin-top: 1px;">Dualism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #315f7e; background-color: #b5d3e8;">
+            <h3 style="margin-top: 1px;">Dynamic Core Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #67519a; background-color: #d1c7ea;">
+            <h3 style="margin-top: 1px;">Electromagnetic Field Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #efa106; background-color: #f4e9d5;">
+            <h3 style="margin-top: 1px;">Eliminative Materialism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d0c7e; background-color: #f2cae9;">
+            <h3 style="margin-top: 1px;">Emergent Materialism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+        
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f4d31d; background-color: #f8f2d2;">
+            <h3 style="margin-top: 0px;">Experiential Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #d3f032; background-color: #e8edca;">
+            <h3 style="margin-top: 1px;">Functionalism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #65aa11; background-color: #e1f2cc;">
+            <h3 style="margin-top: 1px;">Global Workspace Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f41d8c; background-color: #f0c0d9;">
+            <h3 style="margin-top: 1px;">Higher-Order Perception Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #1d61f4; background-color: #b8c9ee;">
+          <h3 style="margin-top: 0px;">Higher-Order Thought Theory</h3>
+          <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #18f5f5; background-color: #bff5f5;">
+            <h3 style="margin-top: 1px;">Holographic Principle in Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9bb40b; background-color: #e4ebbd;">
+            <h3 style="margin-top: 1px;">Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->      
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f41d44; background-color: #e7bbc3;">
+            <h3 style="margin-top: 1px;">Identity Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #1ce2a4; background-color: #b4eddb;">
+            <h3 style="margin-top: 1px;">Information Closure Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #756407; background-color: #eee6ba;">
+          <h3 style="margin-top: 1px;">Integrated Information Theory</h3>
+          <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #0c4e06; background-color: #b4d6b1;">
+            <h3 style="margin-top: 1px;">Local Recurrency</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #1c0655; background-color: #c8b7f5;">
+            <h3 style="margin-top: 1px;">Materialism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->      
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #d3f032; background-color: #e8edca;">
+            <h3 style="margin-top: 1px;">Monistic Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f6a356; background-color: #f6dbc2;">
+            <h3 style="margin-top: 1px;">Multimodal User Interface Theory and Interface Theory of Perception</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9bb40b; background-color: #e4ebbd;">
+            <h3 style="margin-top: 1px;">Multiple Drafts Model of Consciousness</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->      
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #b007b9; background-color: #f0c5f2;">
+            <h3 style="margin-top: 1px;">Neural Correlates of Consciousness</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+  
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #c69007; background-color: #f5e8c6;">
+            <h3 style="margin-top: 1px;">Neural Darwinism (Theory of Neuronal Group Selection)</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+  
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d0c7e; background-color: #f2cae9;">
+            <h3 style="margin-top: 1px;">Neural Subjective Frame</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #830303; background-color: #eccdcd;">
+            <h3 style="margin-top: 1px;">Neuro-Representationalism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+  
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #315f7e; background-color: #b5d3e8;">
+            <h3 style="margin-top: 1px;">Objective Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #d4a1e5; background-color: #ead8ef;">
+            <h3 style="margin-top: 1px;">Orchestrated Objective Reduction</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #291876; background-color: #c9c3e7;">
+            <h3 style="margin-top: 1px;">Panpsychism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+  
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d1fc0; background-color: #e7c6f0;">
+            <h3 style="margin-top: 1px;">Predictive Coding/Processing and Free Energy Principle</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f41d44; background-color: #e7bbc3;">
+            <h3 style="margin-top: 1px;">Physicalism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f47e1d; background-color: #f1dac7;">
+            <h3 style="margin-top: 1px;">Recurrent Processing Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #552e9c; background-color: #bda1ee;">
+            <h3 style="margin-top: 1px;">Self-Organizing Meta-Representational Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #331df4; background-color: #cac6ed;">
+            <h3 style="margin-top: 1px;">Self-Representational Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #81dc95; background-color: #cdf0d5;">
+            <h3 style="margin-top: 1px;">Sensorimotor Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #56086b; background-color: #d3bfd8;">
+            <h3 style="margin-top: 1px;">Subjective Idealism (Phenomenalism)</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+  
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #7e3131; background-color: #eac4c4;">
+            <h3 style="margin-top: 1px;">Subjective Reduction Theory</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f0e110; background-color: #f7f3c2;">
+            <h3 style="margin-top: 1px;">Transcendental Idealism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+  
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #81dc95; background-color: #cdf0d5;">
+            <h3 style="margin-top: 1px;">Unlimited Associative Learning</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+      </div>
+
+    <script type="text/javascript">
+       var canvas = document.getElementById('animationCanvas');
+       var ctx = canvas.getContext('2d');
+       var animationInterval;
+       var isPlaying = true;
+ 
+       function updateCanvas() {
+           ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+ 
+           for (var i = 0; i < 100; i++) {
+               for (var j = 0; j < 100; j++) {
+                   var x = Math.floor(Math.random() * canvas.width);
+                   var y = Math.floor(Math.random() * canvas.height);
+                   var r = Math.floor(Math.random() * 255);
+                   var g = Math.floor(Math.random() * 255);
+                   var b = Math.floor(Math.random() * 255);
+ 
+                   ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
+                   ctx.beginPath();
+                   ctx.arc(x, y, 2, 0, Math.PI * 2); // Draw small circles for animation
+                   ctx.fill();                    
+               }
+           }
+       }
+ 
+       function resizeCanvas() {
+           canvas.width = window.innerWidth;
+           canvas.height = window.innerHeight;
+       }
+ 
+       window.addEventListener('resize', resizeCanvas);
+       resizeCanvas(); // Set initial canvas size
+
+       function toggleAnimation() {
+               if (isPlaying) {
+                   clearInterval(animationInterval);
+                   document.getElementById('controlButton').innerText = '▶';
+               } else {
+                   animationInterval = setInterval(updateCanvas, 100); // Update canvas every 100 milliseconds
+                   document.getElementById('controlButton').innerText = '❚❚';
+               }
+               isPlaying = !isPlaying;
+           }
+           animationInterval = setInterval(updateCanvas, 100); // Start the animation
+    </script>
+</body>
+</html>
