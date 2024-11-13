@@ -11,12 +11,6 @@
             padding: 0.1%;
             font-family: Georgia, 'Times New Roman', Times, serif;
         }
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
         header {
             display: flex;
             justify-content: space-around;
@@ -26,6 +20,11 @@
             width: 98%;
             height: 20px;
             font-family: Georgia, 'Times New Roman', Times, serif;
+            box-shadow: 
+                4px 4px 20px #07198b,   /* Shadow at bottom right */
+                -4px 4px 2px #07198b,   /* Shadow at bottom left */
+                40px -1px 20px #07198b,  /* Shadow at top right */
+                -40px -10px 20px #07198b;  /* Shadow at top left */
         }
         header a {
             text-decoration: none;
@@ -34,10 +33,27 @@
         h4 {
             margin: 0;
         }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            color: #07198b;
+            margin: 0;
+            background-color: black;
+        }
+        h1 {
+            font-weight: bold;
+            color: rgb(168, 229, 222);
+            text-shadow: 
+                4px 4px 4px #07198b, /* Outline color */
+                -4px 4px 4px #07198b,
+                4px -4px 4px #07198b,
+                -4px -4px 4px #07198b;
+        }
         .content-container {
-            background-color: white;
             width: 100%;
-            height: 120px;
+            height: 100px;
             z-index: 1; /* Ensure content is above the canvas */
             display: flex;
             justify-content: flex-start;
@@ -90,7 +106,7 @@
             <!-- <h4><a href="6 Further Reading.html">Further Reading</a></h4> -->
             <h4><a href="Contact.html">Connect</a></h4>
         </header>  
-        <h1 style="margin-bottom: 0; color: #07198b; text-align: center;">Theories of Consciousness</h1>
+        <h1>Theories of Consciousness</h1>
         <!-- <h4 style="margin-bottom: 0; color: #07198b; text-align: center;">*the map is not the territory*</h4> -->
     </div> 
     
@@ -271,14 +287,14 @@
             <h3 style="margin-top: 1px;">Panpsychism</h3>
             <!-- <p style="margin: 1px;">TEXT</p> -->
         </div>
-  
-        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d1fc0; background-color: #e7c6f0;">
-            <h3 style="margin-top: 1px;">Predictive Coding/Processing and Free Energy Principle</h3>
-            <!-- <p style="margin: 1px;">TEXT</p> -->
-        </div>
 
         <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #f41d44; background-color: #e7bbc3;">
             <h3 style="margin-top: 1px;">Physicalism</h3>
+            <!-- <p style="margin: 1px;">TEXT</p> -->
+        </div>
+        
+        <div style="padding: 10px; padding-bottom: 0; margin: 7px; border: 7px solid #9d1fc0; background-color: #e7c6f0;">
+            <h3 style="margin-top: 1px;">Predictive Coding/Processing and Free Energy Principle</h3>
             <!-- <p style="margin: 1px;">TEXT</p> -->
         </div>
 
@@ -324,49 +340,79 @@
       </div>
 
     <script type="text/javascript">
-       var canvas = document.getElementById('animationCanvas');
-       var ctx = canvas.getContext('2d');
-       var animationInterval;
-       var isPlaying = true;
- 
-       function updateCanvas() {
-           ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
- 
-           for (var i = 0; i < 100; i++) {
-               for (var j = 0; j < 100; j++) {
-                   var x = Math.floor(Math.random() * canvas.width);
-                   var y = Math.floor(Math.random() * canvas.height);
-                   var r = Math.floor(Math.random() * 255);
-                   var g = Math.floor(Math.random() * 255);
-                   var b = Math.floor(Math.random() * 255);
- 
-                   ctx.fillStyle = 'rgb(' + r + ',' + g + ',' + b + ')';
-                   ctx.beginPath();
-                   ctx.arc(x, y, 2, 0, Math.PI * 2); // Draw small circles for animation
-                   ctx.fill();                    
-               }
-           }
-       }
- 
-       function resizeCanvas() {
-           canvas.width = window.innerWidth;
-           canvas.height = window.innerHeight;
-       }
- 
-       window.addEventListener('resize', resizeCanvas);
-       resizeCanvas(); // Set initial canvas size
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationInterval;
+        let isPlaying = true;
+        let squares = [];
 
-       function toggleAnimation() {
-               if (isPlaying) {
-                   clearInterval(animationInterval);
-                   document.getElementById('controlButton').innerText = '▶';
-               } else {
-                   animationInterval = setInterval(updateCanvas, 100); // Update canvas every 100 milliseconds
-                   document.getElementById('controlButton').innerText = '❚❚';
-               }
-               isPlaying = !isPlaying;
-           }
-           animationInterval = setInterval(updateCanvas, 100); // Start the animation
-    </script>
+        // Initialize canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Square object constructor
+        function createSquare() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 10 + 5,
+                xVel: (Math.random() - 0.5) * 1.5,
+                yVel: (Math.random() - 0.5) * 1.5,
+                sizeChange: (Math.random() - 0.5) * 0.1,
+                color: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`
+            };
+        }
+      
+        // Create an array of squares
+        function initSquares(numSquares) {
+            squares = [];
+            for (let i = 0; i < numSquares; i++) {
+                squares.push(createSquare());
+            }
+        }
+        initSquares(100); // Initialize with 100 squares
+
+        // Update squares' positions and sizes
+        function updateSquares() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const square of squares) {
+                // Update position
+                square.x += square.xVel;
+                square.y += square.yVel;
+
+                // Boundary detection for bouncing effect
+                if (square.x <= 0 || square.x >= canvas.width) square.xVel *= -1;
+                if (square.y <= 0 || square.y >= canvas.height) square.yVel *= -1;
+
+                // Update size
+                square.size += square.sizeChange;
+                if (square.size <= 5 || square.size >= 20) square.sizeChange *= -1;
+
+                // Draw square
+                ctx.fillStyle = square.color;
+                ctx.fillRect(square.x, square.y, square.size, square.size);
+            }
+        }
+
+        // Animation control
+        function toggleAnimation() {
+            if (isPlaying) {
+                clearInterval(animationInterval);
+                document.getElementById('controlButton').innerText = '▶';
+            } else {
+                animationInterval = setInterval(updateSquares, 30); // Smooth animation
+                document.getElementById('controlButton').innerText = '❚❚';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Start the animation
+        animationInterval = setInterval(updateSquares, 30); // Update canvas every 30 ms
+</script>
 </body>
 </html>
