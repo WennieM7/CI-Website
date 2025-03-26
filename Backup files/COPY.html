@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <!-- Tailwind CSS CDN     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- DaisyUI CDN (Tailwind plugin) -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <title>Definitions</title>
+    <style>
+        html, body {
+            height: 99.5%;
+            margin: 0.3%;
+            padding: 0.1%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        body {
+            background-color: black;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Flip card styles */
+                .card {
+            perspective: 1000px;
+        }
+        .card-inner {
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+        .flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            backface-visibility: hidden;
+        }
+        .card-back {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-start text-blue-900">
+
+    <canvas id="animationCanvas"></canvas>
+
+    <div class="content-container w-full z-10 pt-10">
+        <header class="flex justify-between items-center w-full px-4 py-2 bg-teal-300 shadow-xl">
+            <h4 class="text-sm"><a href="Definitions.html">Definitions</a></h4>
+            <h4 class="text-sm"><a href="Contact.html">Connect</a></h4>
+        </header>   
+        <h1 class="text-4xl font-bold text-teal-300 text-center shadow-lg">How do we define <i>Words</i>?</h1>
+    </div>
+
+    <button id="controlButton" onclick="toggleAnimation()" class="fixed bottom-5 right-5 px-6 py-3 bg-blue-900 text-white rounded-md cursor-pointer z-20">
+        ❚❚
+    </button>
+
+    <div class="container grid grid-cols-4 gap-4 w-11/12 mx-auto my-10">
+
+        <!-- Flip Card 1 -->
+        <div class="card w-full" onclick="flipCard(this)">
+            <div class="card-inner relative w-full h-48">
+                <div class="card-front absolute inset-0 bg-teal-200 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg">
+                    <h3 class="text-xl font-semibold">Word 1</h3>
+                    <p class="text-center">Definition of the word. A short definition.</p>
+                </div>
+                <div class="card-back absolute inset-0 bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg">
+                    <h3 class="text-xl font-semibold">More Information</h3>
+                    <p class="text-center">Additional details about Example 1.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flip Card 2 -->
+        <div class="card w-full" onclick="flipCard(this)">
+            <div class="card-inner relative w-full h-48">
+                <div class="card-front absolute top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+                    <h3 class="text-xl font-semibold">Word 1</h3>
+                    <p class="text-center">Definition of the word. A short definition.</p>
+                </div>
+                <div class="card-back absolute top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border transform rotate-y-180">
+                    <h3 class="text-xl font-semibold">More Information</h3>
+                    <p class="text-center">Additional details about Example 1.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flip Card 3 -->
+        <div class="card relative cursor-pointer" onclick="flipCard(this)">
+            <div class="card-inner relative w-full h-48">
+                <div class="card-front absolute top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+                  <h3 class="text-xl font-semibold">Word 1</h3>
+                  <p class="text-center">Definition of the word. A short definition.</p>
+              </div>
+              <div class="card-back absolute top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border transform rotate-y-180">
+                  <h3 class="text-xl font-semibold">More Information</h3>
+                  <p class="text-center">Additional details about Example 1.</p>
+              </div>
+          </div>
+      </div>
+
+              <!-- Flip Card 4 - similiar to 1, with first line the same as 3 -->
+              <div class="card relative cursor-pointer" onclick="flipCard(this)">
+                <div class="card-inner relative w-full h-48">
+                    <div class="card-front absolute inset-0 bg-teal-200 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg">
+                        <h3 class="text-xl font-semibold">Word 1</h3>
+                        <p class="text-center">Definition of the word. A short definition.</p>
+                    </div>
+                    <div class="card-back absolute inset-0 bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg">
+                        <h3 class="text-xl font-semibold">More Information</h3>
+                        <p class="text-center">Additional details about Example 1.</p>
+                    </div>
+                </div>
+            </div>
+
+                          <!-- Flip Card 5 - similiar to 4, with third and seventh lines the same as 3 -->
+                          <div class="card relative cursor-pointer" onclick="flipCard(this)">
+                            <div class="card-inner relative w-full h-48">
+                                <div class="card-front absolute top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+                                    <h3 class="text-xl font-semibold">Word 1</h3>
+                                    <p class="text-center">Definition of the word. A short definition.</p>
+                                </div>
+                                <div class="card-back absolute inset-0 bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg">
+                                    <h3 class="text-xl font-semibold">More Information</h3>
+                                    <p class="text-center">Additional details about Example 1.</p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                              <!-- Flip Card 6 - similiar to 5, with seventh lines the same as... -->
+                              <div class="card relative cursor-pointer" onclick="flipCard(this)">
+                                <div class="card-inner relative w-full h-48">
+                                    <div class="card-front absolute top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+                                        <h3 class="text-xl font-semibold">Word 1</h3>
+                                        <p class="text-center">Definition of the word. A short definition.</p>
+                                    </div>
+                                    <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+                                        <h3 class="text-xl font-semibold">More Information</h3>
+                                        <p class="text-center">Additional details about Example 1.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+  </div>
+
+    <script type="text/javascript">
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationInterval;
+        let isPlaying = true;
+        let squares = [];
+
+        // Initialize canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Square object constructor
+        function createSquare() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 10 + 5,
+                xVel: (Math.random() - 0.5) * 1.5,
+                yVel: (Math.random() - 0.5) * 1.5,
+                sizeChange: (Math.random() - 0.5) * 0.1,
+                color: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`
+            };
+        }
+      
+        // Create an array of squares
+        function initSquares(numSquares) {
+            squares = [];
+            for (let i = 0; i < numSquares; i++) {
+                squares.push(createSquare());
+            }
+        }
+        initSquares(100); // Initialize with 100 squares
+
+        // Update squares' positions and sizes
+        function updateSquares() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const square of squares) {
+                // Update position
+                square.x += square.xVel;
+                square.y += square.yVel;
+
+                // Boundary detection for bouncing effect
+                if (square.x <= 0 || square.x >= canvas.width) square.xVel *= -1;
+                if (square.y <= 0 || square.y >= canvas.height) square.yVel *= -1;
+
+                // Update size
+                square.size += square.sizeChange;
+                if (square.size <= 5 || square.size >= 20) square.sizeChange *= -1;
+
+                // Draw square
+                ctx.fillStyle = square.color;
+                ctx.fillRect(square.x, square.y, square.size, square.size);
+            }
+        }
+
+        // Animation control
+        function toggleAnimation() {
+            if (isPlaying) {
+                clearInterval(animationInterval);
+                document.getElementById('controlButton').innerText = '▶';
+            } else {
+                animationInterval = setInterval(updateSquares, 30); // Smooth animation
+                document.getElementById('controlButton').innerText = '❚❚';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Start the animation
+        animationInterval = setInterval(updateSquares, 30); // Update canvas every 30 ms
+
+        // Flip card function
+        function flipCard(card) {
+            card.classList.toggle('flipped');
+        }
+    </script>
+</body>
+</html>
