@@ -1,250 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Definitions</title>
-    <style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Definitions</title>
+
+  <!-- Tailwind CSS CDN     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- DaisyUI CDN (Tailwind plugin) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+  <style>
         html, body {
-            height: 99.5%;
-            margin: 0.3%;
-            padding: 0.1%;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-        header {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background-color: rgb(168, 229, 222); 
-            padding: 10px;
-            width: 98%;
-            height: 20px;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            box-shadow: 
-                4px 4px 20px #07198b,   /* Shadow at bottom right */
-                -4px 4px 2px #07198b,   /* Shadow at bottom left */
-                40px -1px 20px #07198b,  /* Shadow at top right */
-                -40px -10px 20px #07198b;  /* Shadow at top left */
-        }
-        header a {
-            text-decoration: none;
-            color: #07198b;
-        }
-        h4 {
-            margin: 0;
+          height: 99.5%;
+          margin: 0.3%;
+          padding: 0.1%;
+          font-family: Georgia, 'Times New Roman', Times, serif;
         }
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            color: #07198b;
-            margin: 0;
-            background-color: black;
-        }
-        h1 {
-            font-weight: bold;
-            color: rgb(168, 229, 222);
-            text-shadow: 
-                4px 4px 4px #07198b, /* Outline color */
-                -4px 4px 4px #07198b,
-                4px -4px 4px #07198b,
-                -4px -4px 4px #07198b;
-        }
-        h3 {
-          text-align: center;
-          margin: 7px;
-        }
-        p {
-          text-align: center;
-        }
-        .content-container {
-            width: 100%;
-            height: 100px;
-            z-index: 1; /* Ensure content is above the canvas */
-            display: flex;
-            justify-content: flex-start;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 10px;
-            margin: 0;
-        }
-        .container {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 10px;
-          padding: 1%;
-          position: relative;
-        }
+          background-color: black;
+        } 
         canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1; /* Ensure the canvas is behind other elements */
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1; /* Ensure the canvas is behind other elements */
         }
-        #controlButton {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #07198b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1;
+        .masonry {
+          column-count: 4;
+          column-gap: 1rem;
+          max-width: 1200px;
+          margin: 2rem auto;
         }
-
-        /* Flip effect styling */
+        /* Flip card styles */
         .card {
+          display: inline-block;
+          width: 100%;
+          margin-bottom: 1rem;
+          break-inside: avoid;
+          transition: transform 0.8s;
           perspective: 1000px;
-          padding: 10px;
-          margin: 7px;
-          border: 7px solid #291876;
-          background-color: #c9c3e7;
           cursor: pointer;
         }
         .card-inner {
-          position: relative;
-          width: 100%;
-          height: 200px;
           transform-style: preserve-3d;
-          transition: transform 0.6s;
         }
-        
-        .card.flipped .card-inner {
+        .flipped .card-inner {
           transform: rotateY(180deg);
         }
-
         .card-front, .card-back {
-          position: absolute;
-          width: 100%;
-          height: 100%;
           backface-visibility: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          padding: 10px;
         }
-
         .card-back {
           transform: rotateY(180deg);
-          background-color: #e6e1f3; /* Different color for the back */
-          border: 7px solid #291876;
+        }
+        /* Responsive masonry */
+        @media (max-width: 1024px) {
+          .masonry {
+            column-count: 2;
+          }
+        }
+        @media (max-width: 768px) {
+          .masonry{
+            column-count: 1;
+          }
         }
   </style>
 </head>
-<body>
-    <canvas id="animationCanvas"></canvas>
+<body class="text-blue-900">
 
-    <div class="content-container">
-      <header>
-          <h4><a href="index.html">Source</a></h4>
-          <h4><a href="Definitions.html">Definitions</a></h4>
-          <h4><a href="Research.html">Research</a></h4>
-          <!-- <h4><a href="4 Expressions.html">Expressions</a></h4> -->
-          <h4><a href="Neuroscience.html">Neuroscience</a></h4>
-          <!-- <h4><a href="6 Further Reading.html">Further Reading</a></h4> -->
-          <h4><a href="Contact.html">Connect</a></h4>
+  <canvas id="animationCanvas"></canvas>
+
+    <div class="content-container w-full z-10 pt-10">
+      <header class="flex justify-around items-center w-full h-9 p-2 bg-teal-200 shadow-[4px_4px_20px_#07198b,-4px_4px_2px_#07198b,40px_-1px_20px_#07198b,-40px_-10px_20px_#07198b] font-serif font-bold -mt-7">
+        <h4 class="m-0"><a href="index.html" class="no-underline text-[#07198b]">Source</a></h4>
+        <h4 class="m-0"><a href="Definitions.html" class="no-underline text-[#07198b]">Definitions</a></h4>
+        <h4 class="m-0"><a href="Research.html" class="no-underline text-[#07198b]">Research</a></h4>
+        <!-- <h4 class="m-0"><a href="4 Expressions.html" class="no-underline text-[#07198b]">Expressions</a></h4> -->
+        <h4 class="m-0"><a href="Neuroscience.html" class="no-underline text-[#07198b]">Neuroscience</a></h4>
+        <!-- <h4 class="m-0"><a href="6 Further Reading.html" class="no-underline text-[#07198b]">Further Reading</a></h4> -->
+        <h4 class="m-0"><a href="Connect.html" class="no-underline text-[#07198b]">Connect</a></h4>
       </header>   
-      <h1>How do we define <i>Consciousness</i>?</h1>
+      <h1 class="text-4xl font-bold text-teal-200 text-center [text-shadow:4px_4px_4px_#07198b,-4px_4px_4px_#07198b,4px_-4px_4px_#07198b,-4px_-4px_4px_#07198b] mt-5">How do we define <i>Consciousness</i>?</h1>
     </div>
 
-    <button id="controlButton" onclick="toggleAnimation()">❚❚</button>
+    <button id="controlButton" onclick="toggleAnimation()" class="fixed bottom-5 right-5 px-6 py-3 bg-blue-900 text-white rounded-md cursor-pointer z-20">❚❚</button>
 
-      <div class="container">
-          <div class="card" onclick="flipCard(this)">
-            <div class="card-inner">
-              <div class="card-front">
-                  <h3>Terence McKenna</h3>
-                  <p>Consciousness is the felt presence of immediate experience.</p>
-              </div>
-              <div class="card-back">
-                <h3>More Information</h3>
-                <p>Additional details about Example 1.</p>
-              </div>
-            </div>
-          </div>
+    <div class="masonry">
 
-        <div style="padding: 10px; margin: 7px; border: 7px solid #291876; background-color: #c9c3e7;">
-          <h3 style="margin-top: 1px;">Joscha Bach</h3>
-          <p style="margin: 1px;">Consciousness is the control model of our attention.</p>
+<!-- Flip card 1 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Terence McKenna</h3>
+          <p>Consciousness is the felt presence of immediate experience.</p>
         </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
 
-        <div style="padding: 10px; margin: 7px; border: 7px solid #7e3131; background-color: #eac4c4;">
-          <h3 style="margin-top: 1px;">Paul Stamets</h3>
-          <p style="margin: 1px;">Consciousness is the interface between the individual mind and the universal mind.</p>
+<!-- Flip card 2 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Albert Einstein</h3>
+          <p>A human being is a part of the whole called by us universe, a part limited in time and space. He experiences himself, his thoughts and feelings as something separated from the rest, a kind of optical delusion of his consciousness.</p>
         </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
 
-        <div style="padding: 10px; margin: 7px; border: 7px solid #f41d44; background-color: #e7bbc3;">
-          <h3 style="margin-top: 1px;">Thomas Nagel</h3>
-          <p style="margin: 1px;">Something that it is like to be [a particular thing/organism].</p>
+<!-- Flip card 3 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Paul Stamets</h3>
+          <p>Consciousness is the interface between the individual mind and the universal mind.</p>
         </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
 
-        <div style="padding: 10px; margin: 7px; border: 7px solid #67519a; background-color: #d1c7ea;">
-          <h3 style="margin-top: 1px;">Donald Hoffman</h3>
-          <p style="margin: 1px;">Consciousness is fundamental; it is the ontological primitive.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #1d7da6; background-color: #bcdae8;">
-          <h3 style="margin-top: 1px;">Alan Watts</h3>
-          <p style="margin: 1px;">Consciousness is the process of experience. It is not a static state but a continuous flow of experiences, sensations, and perceptions.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #65aa11; background-color: #e1f2cc;">
-          <h3 style="margin-top: 1px;">Carl Sagan</h3>
-          <p style="margin: 1px;">Consciousness is the way by which we perceive our universe and ourselves, and it is this awareness that gives life its richness and beauty.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #f4d31d; background-color: #f8f2d2;">
-          <h3 style="margin-top: 0px;">John Locke</h3>
-          <p style="margin: 1px;">The perception of what passes in a man's own mind.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #891df4; background-color: #ddc8f3;">
-          <h3 style="margin-top: 1px;">Gottfried Wilhelm Leibniz</h3>
-          <p style="margin: 1px;">Apperception, which is consciousness, or the reflective knowledge of this internal state, something not given to all souls, nor at all times to a given soul.</p>
-        </div>
-  
-        <div style="padding: 10px; margin: 7px; border: 7px solid #756407; background-color: #eee6ba;">
-          <h3 style="margin-top: 1px;">Samuel Clarke</h3>
-          <p style="margin: 1px;">Consciousness in the most strict and exact sense of the word signifies . . . the Reflex act by which I know that I know and that my thoughts . . . are my own and not another's.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #f41d8c; background-color: #f0c0d9;">
-          <h3 style="margin-top: 1px;">Albert Einstein</h3>
-          <p style="margin: 1px;">A human being is a part of the whole called by us universe, a part limited in time and space. He experiences himself, his thoughts and feelings as something separated from the rest, a kind of optical delusion of his consciousness.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #1d73f4; background-color: #cddef8;">
-          <h3 style="margin-top: 1px;">René Descartes</h3>
-          <p style="margin: 1px;">I think, therefore I am ("Cogito, ergo sum"); ...thought; this term includes everything that is within us in such a way that we are immediately aware of it. Thus all the operations of the will, the intellect, the imagination and the senses are thoughts.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #d4a1e5; background-color: #ead8ef;">
-          <h3 style="margin-top: 1px;">Longman Dictionary of Contemporary English</h3>
-          <p><ol>
-            <li>The condition of being awake and able to understand what is happening around you.</li>
-            <li>Your mind and your thoughts.</li>
-            <li>Someone's ideas, feelings, or opinions about politics, life, etc.</li>
-            <li>When you know that something exists or is true. AWARENESS.</li> 
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #0c4e06; background-color: #b4d6b1;">
-          <h3 style="margin-top: 1px;">American Psychological Association</h3>
-            <p><ol>
-                  <li>The state of being conscious.</li> 
-                  <li>An organism's awarenss of something either internal or external to itself.</li>
-                  <li>The waking state (see wakefulness).</li>
-                  <li>In medicine and brain science, the distinctive electrical activity of the waking brain, as recorded via scalp electroencephalogram, that is commonly used to identify conscious states and their pathologies.</li>
-            </ol></p>
-        </div>
-    
-        <div style="padding: 10px; margin: 7px; border: 7px solid #9bb40b; background-color: #e4ebbd;">
-          <h3 style="margin-top: 1px;">Oxford English Dictionary</h3>
+<!-- Flip card 4 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Oxford English Dictionary</h3>
           <p><ol>
             <li>Internal knowledge or conviction; the state or fact of being mentally conscious or aware of something.</li> 
             <li>The faculty or capacity from which awareness of thought, feeling, and volition and of the external world arises; the exercise of this. 
@@ -253,64 +145,339 @@
             <li>The totality of the impressions, thoughts, and feelings, which make up a person's sense of self or define a person's identity.</li>
             <li>The state of being aware of and responsive to one's surroundings, regarded as the normal condition of waking life.</li>
             <li>As the second element of compounds with the sense 'consciousness of ——, awareness of ——’.</li>
-          </ol></p>        
-        </div>
+          </ol></p>         
+      </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
 
-        <div style="padding: 10px; margin: 7px; border: 7px solid #f47e1d; background-color: #f1dac7;">
-          <h3 style="margin-top: 1px;">Merriam-Webster Dictionary</h3>
+<!-- Flip card 5 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Donald Hoffman</h3>
+          <p>Consciousness is fundamental; it is the ontological primitive.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 6 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Alan Watts</h3>
+          <p>Consciousness is the process of experience. It is not a static state but a continuous flow of experiences, sensations, and perceptions.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 7 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Carl Sagan</h3>
+          <p>Consciousness is the way by which we perceive our universe and ourselves, and it is this awareness that gives life its richness and beauty.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 8 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">John Locke</h3>
+          <p>The perception of what passes in a man's own mind.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 9 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Gottfried Wilhelm Leibniz</h3>
+          <p>Apperception, which is consciousness, or the reflective knowledge of this internal state, something not given to all souls, nor at all times to a given soul.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 9 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Samuel Clarke</h3>
+          <p>Consciousness in the most strict and exact sense of the word signifies . . . the Reflex act by which I know that I know and that my thoughts . . . are my own and not another's.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 10 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Joscha Bach</h3>
+          <p>Consciousness is the control model of our attention.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 11 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">René Descartes</h3>
+          <p>I think, therefore I am ("Cogito, ergo sum"); ...thought; this term includes everything that is within us in such a way that we are immediately aware of it. Thus all the operations of the will, the intellect, the imagination and the senses are thoughts.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 12 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Longman Dictionary of Contemporary English</h3>
+          <p><ol>
+            <li>The condition of being awake and able to understand what is happening around you.</li>
+            <li>Your mind and your thoughts.</li>
+            <li>Someone's ideas, feelings, or opinions about politics, life, etc.</li>
+            <li>When you know that something exists or is true. AWARENESS.</li> 
+          </ol></p>  
+      </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 13 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">American Psychological Association</h3>
+          <p><ol>
+            <li>The state of being conscious.</li> 
+            <li>An organism's awarenss of something either internal or external to itself.</li>
+            <li>The waking state (see wakefulness).</li>
+            <li>In medicine and brain science, the distinctive electrical activity of the waking brain, as recorded via scalp electroencephalogram, that is commonly used to identify conscious states and their pathologies.</li>
+          </ol></p>        
+      </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 14 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Thomas Nagel</h3>
+          <p>Something that it is like to be [a particular thing/organism].</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 15 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Merriam-Webster Dictionary</h3>
           <p><ol>
             <li>a: The quality or state of being aware especially of something within oneself. b: The state or fact of being conscious of an external object, state, or fact. c: AWARENESS.</li>
             <li>The state of being characterized by sensation, emotion, volition, and thought. MIND.</li>
             <li>The totality of conscious states of an individual.</li>
             <li>The normal state of conscious life.</li>
             <li>The upper level of mental life of which the person is aware as contrasted with unconscious processes.</li>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #331df4; background-color: #cac6ed;">
-          <h3 style="margin-top: 1px;">David M. Armstrong</h3>
-          <p style="margin: 1px;">As sentience: a creature capable of sensing and responding to its world.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #81dc95; background-color: #cdf0d5;">
-          <h3 style="margin-top: 1px;">Michael S. A. Graziano</h3>
-          <p style="margin: 1px;">Consciousness is the brain's schematic model of the process of attention.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #830303; background-color: #eccdcd;">
-          <h3 style="margin-top: 1px;">Anil Seth</h3>
-          <p style="margin: 1px;">Consciousness is any kind of subjective experience whatsoever.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #9d1fc0; background-color: #e7c6f0;">
-          <h3 style="margin-top: 1px;">Aldous Huxley</h3>
-          <p style="margin: 1px;">Consciousness is a process, an ongoing flux of perceptions, feelings, and thoughts.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #1d024e; background-color: #cebfe8;">
-          <h3 style="margin-top: 1px;">Ram Dass</h3>
-          <p style="margin: 1px;">Consciousness is a process, not a thing. It is not a substance or an object; it is a verb. It is the act of being aware.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #d3f032; background-color: #e8edca;">
-          <h3 style="margin-top: 1px;">Albert Hofmann</h3>
-          <p style="margin: 1px;">Consciousness is an unfolding of reality that cannot be understood in the traditional sense but must be experienced directly through the transformation of perception.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #c69007; background-color: #f5e8c6;">
-          <h3 style="margin-top: 1px;">Lisa Feldman Barrett</h3>
-          <p style="margin: 1px;">Consciousness is a property of the human brain that emerges from the coordinated activity of billions of neurons.</p>
-        </div>
-
-        <div style="padding: 10px; margin: 7px; border: 7px solid #9d0c7e; background-color: #f2cae9;">
-          <h3 style="margin-top: 1px;">William James</h3>
-          <p style="margin: 1px;">Consciousness is a stream, a continuous flow of thoughts, feelings, and perceptions that is never static but always in motion.</p>
-        </div>
-
-       <!-- <div style="padding: 10px; margin: 7px; border: 7px solid #315f7e; background-color: #b5d3e8;">
-          <h3 style="margin-top: 1px;">Maitreya</h3>
-          <p style="margin: 1px;">Primary mind, mentality and consciousness are synonyms. The definition of primary mind is a cognizer that principally apprehends the mere entity of an object.</p>
-        </div> --> 
+          </ol></p>         
       </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 16 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">David M. Armstrong</h3>
+          <p>As sentience: a creature capable of sensing and responding to its world.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 17 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Michael S. A. Graziano</h3>
+          <p>Consciousness is the brain's schematic model of the process of attention.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 18 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Michael S. A. Graziano</h3>
+          <p>Consciousness is the brain's schematic model of the process of attention.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 19 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Anil Seth</h3>
+          <p>Consciousness is any kind of subjective experience whatsoever.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 20 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Aldous Huxley</h3>
+          <p>Consciousness is a process, an ongoing flux of perceptions, feelings, and thoughts.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 21 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Ram Dass</h3>
+          <p>Consciousness is a process, not a thing. It is not a substance or an object; it is a verb. It is the act of being aware.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 22 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Albert Hofmann</h3>
+          <p>Consciousness is an unfolding of reality that cannot be understood in the traditional sense but must be experienced directly through the transformation of perception.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 23 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Lisa Feldman Barrett</h3>
+          <p>Consciousness is a property of the human brain that emerges from the coordinated activity of billions of neurons.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 24 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">William James</h3>
+          <p>Consciousness is a stream, a continuous flow of thoughts, feelings, and perceptions that is never static but always in motion.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
+<!-- Flip card 25 -->
+<div class="card" onclick="flipCard(this)">
+  <div class="card-inner w-full">
+      <div class="card-front top-0 left-0 w-full h-auto p-4 border-4 border-indigo-700 bg-teal-200 flex items-center justify-center flex-col box-border">
+          <h3 class="text-xl font-semibold">Maitreya</h3>
+          <p>Primary mind, mentality and consciousness are synonyms. The definition of primary mind is a cognizer that principally apprehends the mere entity of an object.</p>
+        </div>
+      <div class="card-back absolute top-0 left-0 w-full h-auto bg-teal-400 flex items-center justify-center border-4 border-indigo-700 p-4 shadow-lg flex-col box-border">
+          <h3 class="text-xl font-semibold">More Information</h3>
+          <p>Additional details.</p>
+      </div>
+  </div>
+</div>
+
 
 <script type="text/javascript">
         const canvas = document.getElementById('animationCanvas');
@@ -390,12 +557,6 @@
         // Flip card function
         function flipCard(card) {
             card.classList.toggle('flipped');
-            let flippedCards = document.querySelectorAll('.card.flipped');
-            let height = flippedCards.length > 0 ? '300px' : '200px';
-
-            document.querySelectorAll('.card').forEach(el => {
-                el.style.height = height;
-            });
         }
     </script>
     </body>
