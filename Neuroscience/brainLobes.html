@@ -67,6 +67,7 @@
             position: absolute;
             top: 10%;
             right: 5%;
+            left: 5%;
             background: white;
             border: 1px solid #ccc;
             padding: 10px;
@@ -96,6 +97,24 @@
             cursor: pointer;
             z-index: 1;
         }
+        #previousLayer:hover {
+            background-color: rgb(38, 168, 152);
+        }
+        #nextLayer {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #nextLayer:hover {
+            background-color: rgb(38, 168, 152);
+        }
         #exit {
             position: fixed;
             top: 10px;
@@ -107,6 +126,9 @@
             border-radius: 5px;
             cursor: pointer;
             z-index: 1;
+        }
+        #exit:hover {
+            background-color: rgb(38, 168, 152);
         }
     </style>
 </head>
@@ -120,10 +142,10 @@
             <defs>
                 <!-- Define styles for parts -->
                 <style>
-                    .frontal-lobe { fill: #c8828d; }
-                    .parietal-lobe { fill: #ddcc6d; }
-                    .occipital-lobe { fill: #6d96dd; }
-                    .temporal-lobe { fill: #76d484; }
+                    .frontal-lobe { fill: #ef8f9e; }
+                    .parietal-lobe { fill: #f5e379; }
+                    .occipital-lobe { fill: #77a4f1; }
+                    .temporal-lobe { fill: #79e689; }
                     .cerebellum { fill: #714f8d; }
                     .brainstem { fill: #d7930e; }
                 </style>
@@ -146,11 +168,11 @@
                     />
                 </g>
                 <g id="cerebellum" class="part cerebellum" transform="translate(0.6837192,-2.2056062)">
-                    <path d="m 671.40019,568.50886 c -23.65958,0.33897 -47.33732,-0.90459 -70.98593,-0.10847 -17.85941,0.60123 -35.75833,1.40573 -53.48163,3.68705 -15.41127,1.98372 -32.86166,0.072 -45.80085,8.67542 0,0 -13.29905,8.94145 -20.01632,13.30914 -5.45015,3.54378 -13.16561,8.36107 -15.58488,14.39512 -3.21911,8.02898 0.31226,14.22599 5.34274,21.26314 3.75,5.24589 12.15638,5.49839 16.2715,10.46303 5.99403,7.23143 4.96729,18.58483 10.57929,26.1166 5.60281,7.51944 13.55271,15.07167 21.25217,20.4244 16.57183,18.20964 39.77488,14.20218 63.46764,13.65147 0,0 32.98059,0.21155 48.94703,-3.32427 14.59132,-3.23129 28.73522,-8.93256 41.83178,-16.13173 11.06507,-6.08246 22.01091,-13.14087 30.44736,-22.53547 5.26544,-5.86345 9.45971,-12.92327 11.94769,-20.40089 1.72142,-5.17372 -0.30864,-11.24194 1.83809,-16.25414 1.68555,-3.93543 6.9247,-5.77685 8.24182,-9.8504 9.49363,-29.36159 -1.00476,-36.65113 -5.19915,-38.34096 -9.37738,-3.77794 -39.92628,-5.17045 -49.09835,-5.03904 z"
+                    <path d="m 671.40019,568.50886 c -23.65958,0.33897 -47.33732,-0.90459 -70.98593,-0.10847 -17.85941,0.60123 -35.75833,1.40573 -53.48163,3.68705 -15.41127,1.98372 -32.86166,0.072 -45.80085,8.67542 -12.93921,8.60343 -14.52338,8.31691 -20.68816,12.88924 -5.27556,3.9128 -12.49377,8.78097 -14.91304,14.81502 -3.21911,8.02898 0.31226,14.22599 5.34274,21.26314 3.75,5.24589 12.15638,5.49839 16.2715,10.46303 5.99403,7.23143 4.96729,18.58483 10.57929,26.1166 5.60281,7.51944 14.5239,13.89265 21.25217,20.4244 17.66609,17.1501 39.77488,14.20218 63.46764,13.65147 21.63389,-0.50285 32.98059,0.21155 48.94703,-3.32427 14.59132,-3.23129 28.73522,-8.93256 41.83178,-16.13173 11.06507,-6.08246 22.01091,-13.14087 30.44736,-22.53547 5.26544,-5.86345 9.45971,-12.92327 11.94769,-20.40089 1.72142,-5.17372 -0.30864,-11.24194 1.83809,-16.25414 1.68555,-3.93543 6.9247,-5.77685 8.24182,-9.8504 9.49363,-29.36159 -1.00476,-36.65113 -5.19915,-38.34096 -9.37738,-3.77794 -39.92628,-5.17045 -49.09835,-5.03904 z"
                     />
                 </g>
                 <g id="brainstem" class="part brainstem" transform="translate(0.5817995,-2.4684428)">
-                    <path d="m 422.36781,635.3544 c -8.70818,-5.55809 -34.19776,-22.13815 -30.97119,-22.19846 0,0 23.9086,0.30532 35.80626,-0.66927 12.60807,-1.03278 35.07184,-8.94725 37.55386,-5.47515 1.875,2.62294 -3.60543,5.74513 1.00845,12.76426 2.30694,3.50956 4.07916,9.30406 8.59014,13.22076 4.51098,3.91669 11.76071,5.51869 12.78949,6.75985 5.99403,7.23143 4.53039,16.40034 10.14239,23.93211 5.60281,7.51944 15.27722,18.16332 22.99977,23.48269 16.46681,11.3425 24.29169,33.83737 25.83293,47.64969 2.00359,17.95582 -13.2203,10.97441 -21.21703,13.47126 -9.95604,3.10861 -24.66977,9.58027 -33.1026,3.44238 -8.47224,-6.16657 -7.132,-22.24902 -10.67607,-32.11031 -3.0866,-8.5884 -6.92488,-17.2793 -11.09316,-25.398 -3.72614,-7.25753 -7.41058,-14.746 -12.03648,-21.4659 -6.26794,-9.10525 -8.81079,-18.1466 -17.03113,-25.53704 -5.46843,-4.91635 -18.59563,-11.86887 -18.59563,-11.86887 z"
+                    <path d="m 422.36781,635.3544 c -8.70818,-5.55809 -35.38427,-23.02803 -32.1577,-23.08834 12.69943,-0.23737 24.70073,0.7351 36.59839,0.0892 12.6317,-0.68579 41.18795,-14.38695 43.66997,-10.91485 1.875,2.62294 -9.32716,11.31629 -4.71328,18.33542 2.30694,3.50956 3.55402,10.0072 8.59014,13.22076 3.30641,2.10983 11.91128,5.21755 12.94006,6.45871 5.99403,7.23143 4.37982,16.70148 9.99182,24.23325 5.60281,7.51944 15.27722,18.16332 22.99977,23.48269 16.46681,11.3425 24.29169,33.83737 25.83293,47.64969 2.00359,17.95582 -13.2203,10.97441 -21.21703,13.47126 -9.95604,3.10861 -24.66977,9.58027 -33.1026,3.44238 -8.47224,-6.16657 -7.132,-22.24902 -10.67607,-32.11031 -3.0866,-8.5884 -6.92488,-17.2793 -11.09316,-25.398 -3.72614,-7.25753 -7.41058,-14.746 -12.03648,-21.4659 -6.26794,-9.10525 -8.81079,-18.1466 -17.03113,-25.53704 -5.46843,-4.91635 -7.88895,-5.03522 -18.59563,-11.86887 z"
                     />
                 </g>
             </g>
@@ -163,9 +185,10 @@
 
     <button id="exit" onclick="redirectToExit()">Exit</button>
     <button id="previousLayer" onclick="redirectToPreviousPage()">Previous Layer</button>
+    <button id="nextLayer" onclick="redirectToNextPage()">Next Layer</button>
 
     <footer>
-        <p>&copy; 2024.</p>
+        <p>&copy; 2025.</p>
     </footer>
 
     <script>
@@ -175,22 +198,13 @@
             const infoBox = document.getElementById('info-box');
             const infoText = document.getElementById('info-text');
 
-           // const brainPartInfo = {
-            // 'frontal-lobe': 'Frontal Lobe. Executive function, working memory, top-down attentional systems.',
-            // 'parietal-lobe': 'Parietal Lobe. Integrates somatosensory and visual information. Movement, spatial function, and mental imagery.',
-            // 'temporal-lobe': 'Temporal Lobe. Processes auditory information and mechanisms of speech.',
-            // 'occipital-lobe': 'Occipital Lobe. Visual information processing.',
-            // 'cerebellum': 'Cerebellum. Movement coordination.',
-            // 'brainstem': 'Brainstem. Autonomic physiological control. Early in evolutionary development.'
-           // };
-
             const brainPartInfo = {
-                'frontal-lobe': 'This is the frontal lobe...',
-                'parietal-lobe': 'This is the parietal lobe...',
-                'temporal-lobe': 'This is the temporal lobe...',
-                'occipital-lobe': 'This is the occipital lobe...',
-                'cerebellum': 'This is the cerebellum...',
-                'brainstem': 'This is the brainstem...'
+                'frontal-lobe': 'This is the frontal lobe... The frontal lobe is one of the four main lobes of the cerebral cortex and is the largest division. It occupies the front part of the brain, situated anterior to (in front of) the central sulcus and superior to (above) the lateral sulcus. The frontal lobes play a role in many higher-level cognitive processes — mental processes that go beyond basic sensory input and motor output. Such functions include attention, planning, organizing, creative thinking, abstract reasoning, language production and comprehension, judgement and decision-making, problem-solving, mentalizing, self-awareness, metacognition, and executive functions (mental skills that coordinate, control, and regulate other cognitive processes; inhibitory control, working memory, and cognitive flexibility). They are also involved in voluntary movement, personality, emotion regulation, social skills, and expressive language.',
+                'parietal-lobe': 'This is the parietal lobe... The parietal lobe is one of the four lobes of the cerebral cortex. It occupies the top-middle part of the brain, situated posterior to (behind) the central sulcus, superior to (above) the lateral fissure, and anterior (in front of) the parieto-occipital sulcus. The parietal lobes play a role in integrating sensory information (e.g., vision + touch), somatosensory processing (such as touch, pressure, pain, and temperature), spatial reasoning, attention allocation, symbolic processing (e.g., mathematics), proprioception, and body schema.',
+                'temporal-lobe': 'This is the temporal lobe... The temporal lobe is one of the four main lobes of the cerebral cortex. It occupies the centre-side part of the brain, located beneath the lateral fissure. The temporal lobe is responsible for auditory perception, language processing and comprehension, memory encoding and retrieval, object recognition, olfactory processing, emotion, and social cognition.',
+                'occipital-lobe': 'This is the occipital lobe... The occipital lobe is one of the four main lobes of the cerebral cortex and is the smallest division. It occupies the back part of the brain, and while functionally distinct, its anatomical boundaries are less defined than the other lobes. The occipital lobe is responsible for processing visual information, including perception and interpretation. The occipital cortex is organized into hierarchical streams. These streams process information beginning with raw visual input and ends in complex interpretation.',
+                'cerebellum': 'This is the cerebellum... The cerebellum is the bottom, hind part of the brain - located beneath the cerebrum and behind the brainstem. Its appearance looks like a tightly folded cauliflower, and because of its shape and structure (e.g., it also includes two hemispheres), it is often referred to as the “little brain.” The cerebellum functions to coordinate movement and balance, learn motor skills (including precision, timing, and refinement), and influences higher-level cognitive functions such as attention, language, and memory.',
+                'brainstem': 'This is the brainstem... The brainstem is the bottom, central part of the brain that connects the cerebrum, cerebellum, and spinal cord — unifying the central nervous system. The brainstem regulates vital life functions; these are autonomic (automatic, involuntary) functions of the body necessary for survival, such as breathing, heart rate, blood pressure, reflexes, sleep, and consciousness (wakefulness/arousal). The brainstem is divided into the midbrain, pons, and medulla oblongata.'
             };
 
             parts.forEach(part => {
@@ -236,6 +250,9 @@
 
         function redirectToPreviousPage() {
             window.location.href = "brainTriDivision.html";
+        }
+        function redirectToNextPage() {
+            window.location.href = "brainLobesPoles.html";
         }
         function redirectToExit() {
             window.location.href = "Neuroscience.html";

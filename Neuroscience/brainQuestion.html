@@ -84,10 +84,10 @@
               padding: 20px;
               margin: 10px;
         }
-        #nextLayer {
+        #answers {
             position: fixed;
-            bottom: 40px;
-            right: 20px;
+            top: 80px;
+            right: 650px;
             padding: 10px 20px;
             background-color: #07198b;
             color: white;
@@ -108,6 +108,9 @@
             cursor: pointer;
             z-index: 1;
         }
+        #exit:hover {
+            background-color: rgb(38, 168, 152);
+        }
     </style>
 </head>
 
@@ -117,7 +120,8 @@
     </header>
     <main>
         <button id="exit" onclick="redirectToExit()">Exit</button>
-        <button id="nextLayer" onclick="redirectToNextPage()">Next Layer</button>
+
+        <button id="answers" onclick="redirectToNextPage()">What is a "brain"?</button>
 
         <svg id="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" version="1.1" xml:space="preserve">
             <defs>
@@ -138,7 +142,7 @@
         </div>
     </main>
     <footer>
-        <p>&copy; 2024.</p>
+        <p>&copy; 2025.</p>
     </footer>
 
     <script>
@@ -149,7 +153,7 @@
             const infoText = document.getElementById('info-text');
 
             const brainPartInfo = {
-                'whole': 'This is the brain...',
+                'whole': 'Brain: an organ [of a body] that controls and coordinates all bodily functions',
             };
 
             parts.forEach(part => {
@@ -193,8 +197,8 @@
             });
         });
 
-        function redirectToNextPage() {
-            window.location.href = "brainTriDivision.html";
+        function redirectToAnswers() {
+            window.location.href = "brainAnswers.html";
         }
         function redirectToExit() {
             window.location.href = "Neuroscience.html";

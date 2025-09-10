@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
- <title>Consciousness Illumes</title>
+ <title>Contemplation Space</title>
 
    <style>
         html, body {
@@ -11,28 +11,6 @@
             margin: 0.3%;
             padding: 0.1%;
             font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-        header {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background-color: rgb(168, 229, 222); 
-            padding: 10px;
-            width: 98%;
-            height: 20px;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-            box-shadow: 
-                4px 4px 20px #07198b,   /* Shadow at bottom right */
-                -4px 4px 2px #07198b,   /* Shadow at bottom left */
-                40px -1px 20px #07198b,  /* Shadow at top right */
-                -40px -10px 20px #07198b;  /* Shadow at top left */
-        }
-        header a {
-            text-decoration: none;
-            color: #07198b;
-        }
-        h4 {
-            margin: 0;
         }
         body {
             display: flex;
@@ -42,21 +20,6 @@
             color: rgb(168, 229, 222);
             margin: 0;
             background-color: black;
-        }
-        h1 a {
-            text-decoration: none;
-            font-weight: bold;
-            color: rgb(168, 229, 222);
-        }
-        h1 {
-            text-decoration: none;
-            font-weight: bold;
-            color: rgb(168, 229, 222);
-            text-shadow: 
-                4px 4px 4px #07198b, /* Outline color */
-                -4px 4px 4px #07198b,
-                4px -4px 4px #07198b,
-                -4px -4px 4px #07198b;
         }
         .content-container {
             width: 100%;
@@ -76,6 +39,33 @@
             width: 100%;
             height: 100%;
             z-index: -1; /* Ensure the canvas is behind other elements */
+        }
+        #exit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #exit:hover {
+            background-color: rgb(38, 168, 152);
+        }
+        #fullscreen-btn {
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #fullscreen-btn:hover {
+            background-color: rgb(38, 168, 152);
         }
         #controlButton {
             position: fixed;
@@ -97,23 +87,71 @@
 <body>
     <canvas id="animationCanvas"></canvas>
 
-    <div class="content-container">
-      <header>
-          <h4><a href="index.html">Source</a></h4>
-          <h4><a href="Definitions.html">Definitions</a></h4>
-          <h4><a href="Research.html">Research</a></h4>
-          <!-- <h4><a href="4 Expressions.html">Expressions</a></h4> -->
-          <h4><a href="Neuroscience.html">Neuroscience</a></h4>
-          <!-- <h4><a href="6 Further Reading.html">Further Reading</a></h4> -->
-          <h4><a href="Connect.html">Connect</a></h4>
-      </header>   
-      <!-- <h1>CONSCIOUSNESS ILLUMES</h1> -->
-      <h1 style="text-decoration: none;">C O N S C I O U S N E S S &nbsp   I L L <a href="contemplationSpace.html">U</a> M E S</h1>
-    </div>
-
+    <button id="fullscreen-btn">Fullscreen</button>
+    <button id="exit" onclick="redirectToExit()">Exit</button>
     <button id="controlButton" onclick="toggleAnimation()">❚❚</button>
 
     <script type="text/javascript">
+
+        // FULLSCREEN FUNCTIONALITY
+        const fullscreenBtn = document.getElementById("fullscreen-btn");
+        const exit = document.getElementById("exit");
+
+        // Enter fullscreen
+        function enterFullscreen() {
+        document.documentElement.requestFullscreen()
+            .then(() => {
+            fullscreenBtn.style.display = "none"; // hide button once fullscreen
+            })
+            .then(() => {
+            exit.style.display = "none"; // hide button once fullscreen
+            })
+            .then(() => {
+            controlButton.style.display = "none"; // hide button once fullscreen
+            })
+            .catch(err => {
+            console.error(`Error attempting fullscreen: ${err.message}`);
+            });
+
+        }
+
+        // Exit fullscreen
+        function exitFullscreen() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+        }
+
+        // Listen for button click
+        fullscreenBtn.addEventListener("click", enterFullscreen);
+
+        // Detect when fullscreen changes (e.g., user presses Esc)
+        document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+            fullscreenBtn.style.display = "inline-block"; // show button again
+            exit.style.display = "inline-block"; // show button again
+            controlButton.style.display = "inline-block"; // show button again
+        }
+        });
+
+        // EXIT BUTTON
+        function redirectToExit() {
+            window.location.href = "index.html";
+        }
+
+        // CONTROL BUTTON
+        function toggleAnimation() {
+            if (isPlaying) {
+                clearInterval(animationInterval);
+                document.getElementById('controlButton').innerText = '▶';
+            } else {
+                animationInterval = setInterval(updateSquares, 30); // Smooth animation
+                document.getElementById('controlButton').innerText = '❚❚';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // CANVAS
         const canvas = document.getElementById('animationCanvas');
         const ctx = canvas.getContext('2d');
         let animationInterval;
@@ -171,18 +209,6 @@
                 ctx.fillStyle = square.color;
                 ctx.fillRect(square.x, square.y, square.size, square.size);
             }
-        }
-
-        // Animation control
-        function toggleAnimation() {
-            if (isPlaying) {
-                clearInterval(animationInterval);
-                document.getElementById('controlButton').innerText = '▶';
-            } else {
-                animationInterval = setInterval(updateSquares, 30); // Smooth animation
-                document.getElementById('controlButton').innerText = '❚❚';
-            }
-            isPlaying = !isPlaying;
         }
 
         // Start the animation

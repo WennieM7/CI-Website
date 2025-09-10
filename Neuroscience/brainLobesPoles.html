@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Brain Diagram</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: rgb(168, 229, 222);
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        footer {
+            text-align: center;
+            padding: 7px;
+            background-color: rgb(31, 142, 129);
+            color: #07198b;
+            width: 100%;
+            font-size: 1vw; /* Responsive font size */
+        }
+        header {
+            text-align: center;
+            padding: 8px;
+            background-color: rgb(38, 168, 152);
+            color: #07198b;
+            width: 100%;
+            font-size: 1.5vw; /* Responsive font size */
+        }
+        header a {
+            text-decoration: none;
+            color: #07198b;
+        }
+        .part {
+            cursor: pointer;
+            transition: fill 0.3s;
+        }
+        .part:hover {
+            fill: #b6bef2;
+        }
+        .selected {
+            fill: #07198b !important;
+        }
+        svg {
+            max-width: 90%;
+            max-height: 90%;
+            width: auto;
+            height: auto;
+        }
+        #info-box {
+            display: none; /* Initially hidden */
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            left: 5%;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(22, 2, 80, 0.1);
+            z-index: 1000;
+        }
+        #info-box p {
+            margin: 0;
+        }
+        .hidden {
+            display: none;
+        }
+        .container {
+              border: 1px solid #1673c49e;
+              padding: 20px;
+              margin: 10px;
+        }
+        #previousLayer {
+            position: fixed;
+            bottom: 40px;
+            right: 150px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #previousLayer:hover {
+            background-color: rgb(38, 168, 152);
+        }
+        #nextLayer {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #nextLayer:hover {
+            background-color: rgb(38, 168, 152);
+        }
+        #exit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 7px 10px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #exit:hover {
+            background-color: rgb(38, 168, 152);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h2>Interactive Brain Diagram</h2>
+    </header>
+    <main>
+        <svg id="diagram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" version="1.1" xml:space="preserve">
+            <defs>
+                <!-- Define styles for parts -->
+                <style>
+                    .frontal-lobe { fill: #ef8f9e; }
+                    .frontal-pole { fill: #b44f5e; }
+                    .parietal-lobe { fill: #f5e379; }
+                    .occipital-lobe { fill: #77a4f1; }
+                    .occipital-pole { fill: #3e65a8; }
+                    .temporal-lobe { fill: #79e689; }
+                    .temporal-pole { fill: #3e994c; }
+                    .cerebellum { fill: #714f8d; }
+                    .brainstem { fill: #d7930e; }
+                </style>
+            </defs>
+            <g id="brain-diagram">
+                <g id="frontal-lobe" class="part frontal-lobe">
+                    <path d="m 512.80273,150.40625 c -10.1471,-0.21695 -18.06533,4.88082 -28.19726,4.28516 -7.97964,-0.46913 -20.86216,-3.7029 -28.84766,-4.0586 -15.11544,-0.67328 -18.11806,7.34336 -33.24219,6.90625 -4.99136,-0.14426 -19.1269,-0.40244 -24.08398,0.19922 -8.80665,1.0689 -13.69997,7.4636 -22.50195,8.57031 -14.1583,1.78018 -27.27902,4.77865 -39.3086,8.71485 -17.38075,5.68715 -23.25898,21.52307 -40.54492,27.49218 -7.87151,2.71817 -17.33729,-1.17923 -24.87109,2.36915 -10.10134,4.75767 -14.36398,17.53893 -23.68555,23.68554 -8.87387,5.85141 -21.55767,4.90214 -29.60742,11.84375 -8.30658,7.1631 -9.13941,20.36301 -16.58008,28.42188 -7.50306,8.12644 -20.05726,10.53851 -27.24023,18.94922 -8.829,10.33808 -14.67555,24.8815 -23.40625,35.30273 -9.07718,10.83479 -21.94358,2.34695 -32.9336,38.26953 -3.36975,11.01458 -6.37896,21.32374 -8.65039,31.39063 0.18896,-0.38292 0.38483,-0.72936 0.5918,-1.02149 1.78892,-2.52492 4.68442,-3.52754 8.20703,-3.48242 10.56783,0.13535 26.79233,9.69546 35.80859,15.8418 9.05349,6.17168 16.7886,16.05119 23.55664,24.66797 6.99588,8.90681 11.37315,19.78353 14.84376,30.56445 2.62481,8.15364 3.50362,16.80018 4.36718,25.32226 0.9395,9.2715 2.10051,18.7056 0.87305,27.94336 -0.92174,6.93697 -3.22949,13.32777 -5.05273,20.08399 -0.81579,3.02299 -3.01554,9.65199 -6.12305,10.1582 -0.79994,0.13031 -1.60035,0.18745 -2.40039,0.19922 7.32448,1.61226 15.0132,2.59003 22.26758,3.16406 22.89357,1.81155 53.03499,-2.45565 68.71679,-4.96289 7.8409,-1.25362 18.89925,-2.35282 23.61445,-3.47286 4.7152,-1.12004 4.77517,-1.89923 4.36374,-4.68302 -1.4549,-9.84413 -3.8608,-25.96115 -0.40464,-38.03357 1.65849,-5.79312 4.19275,-11.48544 7.02411,-16.80469 2.24127,-4.21063 9.79703,-10.87827 12.97265,-14.4375 6.1299,-6.87035 11.91258,-5.22598 18.75,-11.39258 7.32882,-6.60977 10.83746,-16.65697 17.76563,-23.68554 7.70492,-7.81659 16.61352,-14.53557 26.05469,-20.13282 5.93042,-3.51588 14.56857,-2.96735 18.94922,-8.29101 2.31258,-2.81041 1.71457,-7.07762 2.36718,-10.6582 1.00105,-5.49237 1.97338,-11.01128 2.36914,-16.58008 0.3638,-5.11906 2.00737,-9.35892 4.23047,-13.98438 3.28497,-6.83478 10.24824,-8.78826 13.53321,-15.62304 7.35336,-15.2996 -2.41959,-34.12414 0,-50.92579 0.9971,-6.92386 1.77568,-14.4987 5.92187,-20.13281 5.90548,-8.02471 19.21955,-8.37455 24.87109,-16.58008 5.05192,-7.33492 0.56703,-18.93791 5.92188,-26.05468 7.86126,-10.44786 26.1595,-8.75239 34.34375,-18.94922 4.37866,-5.4554 1.77568,-14.49871 5.92187,-20.13281 5.90548,-8.02472 19.89793,-7.94653 24.8711,-16.58008 3.15886,-5.48386 4.83513,-13.78034 1.18359,-18.94922 -3.31647,-4.6946 -10.8335,-4.61346 -16.58008,-4.73633 z"
+                    />
+                </g>
+                <g id="frontal-pole" class="part frontal-pole">
+                    <path d="M 183.77344 543.02539 C 184.57348 543.01362 185.37389 542.95648 186.17383 542.82617 C 189.28134 542.31996 191.48109 535.69096 192.29688 532.66797 C 194.12012 525.91175 196.42787 519.52095 197.34961 512.58398 C 198.57707 503.34622 197.41606 493.91212 196.47656 484.64062 C 195.613 476.11854 194.73419 467.472 192.10938 459.31836 C 188.63877 448.53744 184.2615 437.66072 177.26562 428.75391 C 170.49758 420.13713 162.76247 410.25762 153.70898 404.08594 C 144.69272 397.9396 128.46822 388.37949 117.90039 388.24414 C 114.37778 388.19902 111.48228 389.20164 109.69336 391.72656 C 109.48639 392.01869 109.29052 392.36513 109.10156 392.74805 C 107.50253 399.83488 106.27246 406.81388 105.68555 413.78125 C 105.44624 418.14392 105.3339 422.48065 105.32812 426.13477 C 105.32733 426.64024 105.36643 427.14795 105.375 427.6543 C 105.61466 433.40637 106.31293 439.22825 107.63086 445.20312 C 107.79035 445.83455 107.94818 446.46627 108.125 447.0918 C 109.37359 451.5088 110.67226 455.94701 112.16406 460.30664 C 113.84642 464.77622 115.82229 469.33815 118.23047 474.05469 C 135.31316 507.51204 132.78397 505.26976 138.36328 512.29688 C 145.72739 521.57193 154.0616 530.99353 164.61719 536.48828 C 170.20157 539.39525 176.8241 541.49571 183.77344 543.02539 z "
+                    />
+                </g>
+                <g id="parietal-lobe" class="part parietal-lobe">
+                    <path d="m 731.46418,262.8707 c 14.61986,18.34713 16.29099,29.52926 16.68544,29.74487 4.76541,2.60483 9.65731,9.66848 9.45731,16.4631 -0.36294,12.33015 2.06528,9.54496 -3.73535,18.55286 -8.88351,13.79537 -15.22531,13.9918 -30.82946,25.06848 -4.47293,3.17513 -8.5794,2.9836 -10.50933,13.38176 -0.76034,4.09663 -5.3787,12.16358 -7.03267,14.91857 -3.30794,5.50999 -8.32997,6.91503 -11.9168,11.38551 -7.17366,8.94095 -10.57747,11.09781 -17.98221,14.38999 -10.12872,4.50327 -8.94679,-5.06071 -14.98668,-6.33528 -6.0399,-1.27456 -13.11657,-5.79929 -16.68558,-7.90507 -3.15189,-1.85968 -18.204,-8.48697 -27.54507,-9.27328 -6.32761,-0.1623 -22.64961,-1.05954 -33.67556,-3.0535 -11.02596,-1.99396 -21.04159,-1.15607 -29.04221,-2.84812 -16.00126,-3.3841 -18.04168,-5.23191 -28.6434,-6.26299 -17.04688,-1.6579 -25.22967,8.89833 -33.84794,6.9748 -8.61826,-1.92354 -10.60375,-0.47194 -16.90844,-1.70309 -12.60939,-2.46231 -16.57755,-3.40955 -24.21336,-0.0823 -15.27162,6.65439 -38.17411,21.07314 -33.45352,18.27451 5.93043,-3.51589 -18.04773,11.4176 -13.66708,6.09393 2.31259,-2.81041 1.716,-7.07812 2.36861,-10.65871 1.00105,-5.49237 1.97284,-11.01141 2.3686,-16.58022 0.3638,-5.11906 2.00801,-9.36009 4.23112,-13.98555 3.28497,-6.83479 10.24843,-8.7872 13.5334,-15.62199 7.35337,-15.29961 -2.41959,-34.12329 0,-50.92495 0.9971,-6.92387 1.77531,-14.49902 5.92151,-20.13313 5.90548,-8.02472 19.21878,-8.37469 24.87033,-16.58022 5.05192,-7.33493 0.56664,-18.93785 5.9215,-26.05463 7.86127,-10.44787 26.16048,-8.75198 34.34474,-18.94882 4.37866,-5.4554 1.77531,-14.49901 5.92151,-20.13312 5.90548,-8.02472 19.81473,-7.99466 24.87033,-16.58022 3.23831,-5.49939 3.30271,-6.07422 3.77322,-8.41976 0.48386,-2.41212 -2.45313,-7.23091 -1.11919,-10.13157 0.47033,-1.02275 8.22759,1.59461 9.48039,2.07527 1.2528,0.48065 6.59957,4.6484 9.4288,6.00328 2.82923,1.35489 10.03006,0.91001 15.80147,3.10699 2.8857,1.09849 6.88306,6.04872 13.72425,9.46362 3.4206,1.70745 5.98184,3.89221 11.29415,5.22236 5.31232,1.33016 12.09785,-2.09548 21.92459,4.55242 6.18226,4.18237 9.14426,7.50668 14.50725,9.81432 5.51549,2.37326 11.7697,2.40798 17.58731,3.89406 5.54624,1.41676 11.34079,2.28975 16.49327,4.78372 5.4052,2.6163 9.86211,6.85874 14.66969,10.45713 6.19654,4.63801 11.89625,9.93829 18.26128,14.34222 7.34784,5.08393 16.21597,7.99009 22.92539,13.89101 6.19671,5.44999 8.34372,10.47092 15.42839,19.36179 z"
+                    />
+                </g>
+                <g id="occipital-lobe" class="part occipital-lobe">
+                    <path d="m 757.77344,308.31641 c -0.82084,0.53112 0.31033,11.98253 -4.04014,18.73845 -8.8835,13.79535 -14.66042,14.1048 -30.26455,25.18147 -4.47293,3.17512 -9.14537,2.98271 -11.0753,13.38086 -0.76033,4.09662 -4.8137,12.16493 -6.46767,14.91992 -3.30794,5.50998 -8.32919,6.91429 -11.91601,11.38477 -7.17366,8.94094 -10.63832,10.90321 -18.04305,14.19539 -6.5301,2.9033 21.49603,22.21307 26.59773,36.45695 6.07816,16.9701 -3.05202,37.6806 4.90821,53.85351 6.96431,14.14951 23.03534,21.54759 34.71679,32.14258 10.17029,9.22439 14.63313,13.00118 30.79297,27.35938 1.4375,1.27723 9.61468,-7.74508 16.6543,-22.20508 -0.19431,0.17416 -0.3897,0.34325 -0.5957,0.48242 -3.55776,2.40349 -10.34984,-5.15467 -13.6211,-7.93555 -5.99156,-5.09341 -9.52635,-11.69719 -14.49219,-17.79492 -4.76405,-5.84994 -8.9019,-15.35829 -10.72265,-22.67968 -2.22197,-8.93474 -1.74927,-14.44338 1.19726,-23.16602 2.93075,-8.6759 6.62006,-18.00015 13.69336,-23.81641 8.58055,-7.05563 29.45885,-21.5524 32.87696,-10.98242 0.11991,0.37082 0.21711,0.78987 0.30664,1.22852 0.61534,-22.80053 2.1575,-27.80565 -1.51172,-40.98438 -4.55178,-16.34862 -17.40001,-29.1982 -24.69336,-44.52148 -5.39435,-11.33348 -10.32683,-26.53505 -12.32422,-31.50586 -1.14982,-2.8615 -1.70295,-3.90946 -1.97656,-3.73242 z"
+                    />
+                </g>
+                <g id="occipital-pole" class="part occipital-pole">
+                    <path d="M 798.2793 429.06055 C 798.18977 428.6219 798.09257 428.20285 797.97266 427.83203 C 794.55455 417.26205 773.67625 431.75882 765.0957 438.81445 C 758.0224 444.63071 754.33309 453.95496 751.40234 462.63086 C 748.45581 471.3535 747.98311 476.86214 750.20508 485.79688 C 752.02583 493.11827 756.16368 502.62662 760.92773 508.47656 C 765.89357 514.57429 769.42836 521.17807 775.41992 526.27148 C 778.69118 529.05236 785.48326 536.61052 789.04102 534.20703 C 789.24702 534.06786 789.44241 533.89877 789.63672 533.72461 C 794.56354 523.60448 798.93869 510.84414 800.0332 496.99023 C 802.69158 463.34135 797.67626 451.55066 798.27539 429.16406 C 798.27651 429.12239 798.27818 429.1021 798.2793 429.06055 z "
+                    />
+                </g>
+                <g id="temporal-lobe" class="part temporal-lobe" transform="translate(1.203724,-1.2037237)">
+                    <path d="M 518.42518 371.46544 C 507.14194 372.07575 498.82321 376.69201 482.55018 377.41857 C 474.1175 377.79508 463.77687 371.2871 455.69862 374.0963 C 447.62037 376.9055 446.82378 378.20109 438.7162 380.91075 C 430.60862 383.62042 411.72935 398.88814 403.61464 401.20177 C 395.49992 403.51539 392.3842 406.71157 384.28456 408.33263 C 373.52234 410.48657 365.93479 420.64886 358.22987 428.46544 C 351.3017 435.49402 347.79501 445.54122 340.4662 452.15099 C 333.62877 458.31758 327.84609 456.67126 321.7162 463.54161 C 318.54057 467.10084 310.98286 473.76848 308.74159 477.97911 C 305.91023 483.29836 303.04265 488.99263 301.38417 494.78575 C 297.928 506.85817 299.06231 521.62318 301.1576 532.45763 C 301.74096 535.47407 302.13411 538.24988 302.4662 540.8795 C 302.55599 540.36946 302.66151 539.86251 302.80214 539.36388 C 305.12843 531.11547 319.55161 532.61633 326.12049 533.39513 C 334.27952 534.36246 343.76582 535.54625 351.28065 538.86779 C 356.88302 541.34401 361.4182 545.88541 365.67909 550.28575 C 370.12266 554.87477 374.09275 560.03913 377.09706 565.67638 C 379.6572 570.48022 381.34706 575.75995 382.55799 581.067 C 383.92803 587.07133 385.20416 593.14654 385.87831 599.26818 C 386.31637 603.24602 388.28547 609.5873 385.04823 610.86193 C 384.68691 611.00419 384.31277 611.11441 383.93495 611.21349 C 388.91994 611.36299 393.9069 611.4178 398.82753 611.46544 C 418.83679 611.65917 439.57118 612.14387 458.60682 605.97521 C 474.28315 600.89516 485.71656 586.58568 501.13221 580.76232 C 515.66805 575.27131 531.52174 574.07025 546.93299 572.08654 C 564.65628 569.80522 582.55407 569.00222 600.41346 568.40099 C 624.06205 567.60487 647.74633 567.87369 671.39979 568.50841 C 686.72533 568.91965 702.00909 571.42159 717.33143 570.9049 C 728.81315 570.51772 740.54131 570.0795 751.55018 566.79552 C 758.57693 564.69942 770.22119 564.28292 771.25917 557.02404 C 772.95356 545.17458 753.91261 540.51005 744.8451 532.69591 C 736.18767 525.23515 726.27591 519.2184 718.14784 511.18419 C 713.24723 506.34018 707.42359 501.68603 704.99159 495.23888 C 699.24711 480.01047 708.44054 461.9282 703.45057 446.43615 C 700.66019 437.77298 693.47136 431.20724 688.22206 423.77208 C 684.54616 418.56552 682.53209 411.27255 676.83729 408.41075 C 674.59094 407.2819 671.63363 409.34533 669.29432 408.42443 C 666.47086 407.31294 665.24954 403.76268 662.64393 402.20763 C 659.8232 400.5242 656.34711 400.3022 653.30409 399.06505 C 643.38968 395.03433 634.68425 387.99245 624.36268 385.16271 C 602.86908 379.27011 569.43677 380.35334 557.75721 379.33068 C 556.47911 379.21877 537.59229 372.26646 523.47401 371.4713 C 521.70923 371.37191 520.03707 371.37826 518.42518 371.46544 z "
+                    />
+                </g>
+                <g id="temporal-pole" class="part temporal-pole" transform="translate(1.203724,-1.2037237)">
+                    <path d="M 383.93495 611.21349 C 384.31277 611.11441 384.68691 611.00419 385.04823 610.86193 C 388.28547 609.5873 386.31637 603.24602 385.87831 599.26818 C 385.20416 593.14654 383.92803 587.07133 382.55799 581.067 C 381.34706 575.75995 379.6572 570.48022 377.09706 565.67638 C 374.09275 560.03913 370.12266 554.87477 365.67909 550.28575 C 361.4182 545.88541 356.88302 541.34401 351.28065 538.86779 C 343.76582 535.54625 334.27952 534.36246 326.12049 533.39513 C 319.55161 532.61633 305.12843 531.11547 302.80214 539.36388 C 302.66151 539.86251 302.55599 540.36946 302.4662 540.8795 C 303.49145 548.99782 303.87578 555.61165 307.00721 562.70958 C 310.74497 571.18184 316.94055 578.55531 323.59706 584.99279 C 325.33058 586.66927 327.14756 588.29985 328.96815 589.92247 C 329.78212 590.61674 330.59827 591.30908 331.42323 591.98888 C 331.97035 592.43973 332.52417 592.92075 333.07557 593.39318 C 339.66784 598.8077 346.78387 603.59035 354.66542 606.54552 C 363.92704 610.01815 373.91479 610.91298 383.93495 611.21349 z "
+                    />
+                </g>
+                <g id="cerebellum" class="part cerebellum" transform="translate(0.6837192,-2.2056062)">
+                    <path d="m 671.40019,568.50886 c -23.65958,0.33897 -47.33732,-0.90459 -70.98593,-0.10847 -17.85941,0.60123 -35.75833,1.40573 -53.48163,3.68705 -15.41127,1.98372 -32.86166,0.072 -45.80085,8.67542 -12.93921,8.60343 -14.52338,8.31691 -20.68816,12.88924 -5.27556,3.9128 -12.49377,8.78097 -14.91304,14.81502 -3.21911,8.02898 0.31226,14.22599 5.34274,21.26314 3.75,5.24589 12.15638,5.49839 16.2715,10.46303 5.99403,7.23143 4.96729,18.58483 10.57929,26.1166 5.60281,7.51944 14.5239,13.89265 21.25217,20.4244 17.66609,17.1501 39.77488,14.20218 63.46764,13.65147 21.63389,-0.50285 32.98059,0.21155 48.94703,-3.32427 14.59132,-3.23129 28.73522,-8.93256 41.83178,-16.13173 11.06507,-6.08246 22.01091,-13.14087 30.44736,-22.53547 5.26544,-5.86345 9.45971,-12.92327 11.94769,-20.40089 1.72142,-5.17372 -0.30864,-11.24194 1.83809,-16.25414 1.68555,-3.93543 6.9247,-5.77685 8.24182,-9.8504 9.49363,-29.36159 -1.00476,-36.65113 -5.19915,-38.34096 -9.37738,-3.77794 -39.92628,-5.17045 -49.09835,-5.03904 z"
+                    />
+                </g>
+                <g id="brainstem" class="part brainstem" transform="translate(0.5817995,-2.4684428)">
+                    <path d="m 422.36781,635.3544 c -8.70818,-5.55809 -35.38427,-23.02803 -32.1577,-23.08834 12.69943,-0.23737 24.70073,0.7351 36.59839,0.0892 12.6317,-0.68579 41.18795,-14.38695 43.66997,-10.91485 1.875,2.62294 -9.32716,11.31629 -4.71328,18.33542 2.30694,3.50956 3.55402,10.0072 8.59014,13.22076 3.30641,2.10983 11.91128,5.21755 12.94006,6.45871 5.99403,7.23143 4.37982,16.70148 9.99182,24.23325 5.60281,7.51944 15.27722,18.16332 22.99977,23.48269 16.46681,11.3425 24.29169,33.83737 25.83293,47.64969 2.00359,17.95582 -13.2203,10.97441 -21.21703,13.47126 -9.95604,3.10861 -24.66977,9.58027 -33.1026,3.44238 -8.47224,-6.16657 -7.132,-22.24902 -10.67607,-32.11031 -3.0866,-8.5884 -6.92488,-17.2793 -11.09316,-25.398 -3.72614,-7.25753 -7.41058,-14.746 -12.03648,-21.4659 -6.26794,-9.10525 -8.81079,-18.1466 -17.03113,-25.53704 -5.46843,-4.91635 -7.88895,-5.03522 -18.59563,-11.86887 z"
+                    />
+                </g>
+            </g>
+        </svg>
+
+        <div id="info-box" class="hidden">
+            <p id="info-text"></p>
+        </div>
+    </main>
+
+    <button id="exit" onclick="redirectToExit()">Exit</button>
+    <button id="previousLayer" onclick="redirectToPreviousPage()">Previous Layer</button>
+    <button id="nextLayer" onclick="redirectToNextPage()">Next Layer</button>
+
+    <footer>
+        <p>&copy; 2025.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const parts = document.querySelectorAll('.part');
+            let selectedPart = null;
+            const infoBox = document.getElementById('info-box');
+            const infoText = document.getElementById('info-text');
+
+            const brainPartInfo = {
+                'frontal-lobe': 'This is the frontal lobe... The frontal lobe is one of the four main lobes of the cerebral cortex and is the largest division. It occupies the front part of the brain, situated anterior to (in front of) the central sulcus and superior to (above) the lateral sulcus. The frontal lobes play a role in many higher-level cognitive processes — mental processes that go beyond basic sensory input and motor output. Such functions include attention, planning, organizing, creative thinking, abstract reasoning, language production and comprehension, judgement and decision-making, problem-solving, mentalizing, self-awareness, metacognition, and executive functions (mental skills that coordinate, control, and regulate other cognitive processes; inhibitory control, working memory, and cognitive flexibility). They are also involved in voluntary movement, personality, emotion regulation, social skills, and expressive language.',
+                'parietal-lobe': 'This is the parietal lobe... The parietal lobe is one of the four lobes of the cerebral cortex. It occupies the top-middle part of the brain, situated posterior to (behind) the central sulcus, superior to (above) the lateral fissure, and anterior (in front of) the parieto-occipital sulcus. The parietal lobes play a role in integrating sensory information (e.g., vision + touch), somatosensory processing (such as touch, pressure, pain, and temperature), spatial reasoning, attention allocation, symbolic processing (e.g., mathematics), proprioception, and body schema.',
+                'temporal-lobe': 'This is the temporal lobe... The temporal lobe is one of the four main lobes of the cerebral cortex. It occupies the centre-side part of the brain, located beneath the lateral fissure. The temporal lobe is responsible for auditory perception, language processing and comprehension, memory encoding and retrieval, object recognition, olfactory processing, emotion, and social cognition.',
+                'occipital-lobe': 'This is the occipital lobe... The occipital lobe is one of the four main lobes of the cerebral cortex and is the smallest division. It occupies the back part of the brain, and while functionally distinct, its anatomical boundaries are less defined than the other lobes. The occipital lobe is responsible for processing visual information, including perception and interpretation. The occipital cortex is organized into hierarchical streams. These streams process information beginning with raw visual input and ends in complex interpretation.',
+                'cerebellum': 'This is the cerebellum... The cerebellum is the bottom, hind part of the brain - located beneath the cerebrum and behind the brainstem. Its appearance looks like a tightly folded cauliflower, and because of its shape and structure (e.g., it also includes two hemispheres), it is often referred to as the “little brain.” The cerebellum functions to coordinate movement and balance, learn motor skills (including precision, timing, and refinement), and influences higher-level cognitive functions such as attention, language, and memory.',
+                'brainstem': 'This is the brainstem... The brainstem is the bottom, central part of the brain that connects the cerebrum, cerebellum, and spinal cord — unifying the central nervous system. The brainstem regulates vital life functions; these are autonomic (automatic, involuntary) functions of the body necessary for survival, such as breathing, heart rate, blood pressure, reflexes, sleep, and consciousness (wakefulness/arousal). The brainstem is divided into the midbrain, pons, and medulla oblongata.'
+            };
+
+            parts.forEach(part => {
+                part.addEventListener('mouseover', () => {
+                    part.querySelector('path').setAttribute('fill', 'lightpurple');
+                });
+                part.addEventListener('mouseout', () => {
+                    if (!part.classList.contains('selected')) {
+                        const originalFill = part.getAttribute('data-original-fill');
+                        part.querySelector('path').setAttribute('fill', originalFill);
+                    }
+                });
+                part.addEventListener('click', () => {
+                    parts.forEach(p => p.classList.remove('selected'));
+                    if (selectedPart) {
+                        selectedPart.querySelector('path').setAttribute('fill', selectedPart.getAttribute('data-original-fill'));
+                    }
+                    part.classList.add('selected');
+                    selectedPart = part;
+
+                    // Show info box
+                    const partId = part.getAttribute('id');
+                    infoText.textContent = brainPartInfo[partId] || 'Information not available';
+                    infoBox.style.display = 'block';
+                    event.stopPropagation(); // Prevent the global click handler from deselecting immeditately
+                });
+
+                // Store original fill color
+                const path = part.querySelector('path');
+                part.setAttribute('data-original-fill', path.getAttribute('fill'));
+            });
+
+            // Deselect parts and hide info box when clicking outside
+            document.addEventListener('click', (event) => {
+                if (selectedPart && !event.target.closest('.part')) {
+                    selectedPart.querySelector('path').setAttribute('fill', selectedPart.getAttribute('data-original-fill'));
+                    selectedPart.classList.remove('selected');
+                    selectedPart = null;
+                    infoBox.style.display = 'none';
+                }
+            });
+        });
+
+        function redirectToPreviousPage() {
+            window.location.href = "brainLobes.html";
+        }
+        function redirectToNextPage() {
+            window.location.href = "brainLobesLateral.html";
+        }
+        function redirectToExit() {
+            window.location.href = "Neuroscience.html";
+        }
+    </script>
+</body>
+</html>
