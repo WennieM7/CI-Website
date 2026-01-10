@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+ <title>Contemplation Space</title>
+
+   <style>
+        html, body {
+            height: 99.5%;
+            margin: 0.3%;
+            padding: 0.1%;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            color: rgb(168, 229, 222);
+            margin: 0;
+            background-color: black;
+        }
+        .content-container {
+            width: 100%;
+            height: 0px;
+            z-index: 1; /* Ensure content is above the canvas */
+            display: flex;
+            justify-content: flex-start;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            margin: 0;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure the canvas is behind other elements */
+        }
+        #exit {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #exit:hover {
+            background-color: rgb(38, 168, 152);
+        }
+        #fullscreen-btn {
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #fullscreen-btn:hover {
+            background-color: rgb(38, 168, 152);
+        }
+        #controlButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #07198b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1;
+        }
+        #controlButton:hover {
+            background-color: rgb(38, 168, 152);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="animationCanvas"></canvas>
+
+    <button id="fullscreen-btn">Fullscreen</button>
+    <button id="exit" onclick="redirectToExit()">Exit</button>
+    <button id="controlButton" onclick="toggleAnimation()">❚❚</button>
+
+    <script type="text/javascript">
+
+        // FULLSCREEN FUNCTIONALITY
+        const fullscreenBtn = document.getElementById("fullscreen-btn");
+        const exit = document.getElementById("exit");
+
+        // Enter fullscreen
+        function enterFullscreen() {
+        document.documentElement.requestFullscreen()
+            .then(() => {
+            fullscreenBtn.style.display = "none"; // hide button once fullscreen
+            })
+            .then(() => {
+            exit.style.display = "none"; // hide button once fullscreen
+            })
+            .then(() => {
+            controlButton.style.display = "none"; // hide button once fullscreen
+            })
+            .catch(err => {
+            console.error(`Error attempting fullscreen: ${err.message}`);
+            });
+
+        }
+
+        // Exit fullscreen
+        function exitFullscreen() {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        }
+        }
+
+        // Listen for button click
+        fullscreenBtn.addEventListener("click", enterFullscreen);
+
+        // Detect when fullscreen changes (e.g., user presses Esc)
+        document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) {
+            fullscreenBtn.style.display = "inline-block"; // show button again
+            exit.style.display = "inline-block"; // show button again
+            controlButton.style.display = "inline-block"; // show button again
+        }
+        });
+
+        // EXIT BUTTON
+        function redirectToExit() {
+            window.location.href = "index.html";
+        }
+
+        // CONTROL BUTTON
+        function toggleAnimation() {
+            if (isPlaying) {
+                clearInterval(animationInterval);
+                document.getElementById('controlButton').innerText = '▶';
+            } else {
+                animationInterval = setInterval(updateSquares, 30); // Smooth animation
+                document.getElementById('controlButton').innerText = '❚❚';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // CANVAS
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationInterval;
+        let isPlaying = true;
+        let squares = [];
+        let sparkles = [];
+    
+        // Resize canvas to fit window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+    
+        // Square object constructor
+        function createSquare() {
+            return {
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 10 + 5,
+                xVel: (Math.random() - 0.5) * 1.5,
+                yVel: (Math.random() - 0.5) * 1.5,
+                sizeChange: (Math.random() - 0.5) * 0.1,
+                color: `rgb(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)})`
+            };
+        }
+    
+        // Initialize squares
+        function initSquares(numSquares) {
+            squares = [];
+            for (let i = 0; i < numSquares; i++) {
+                squares.push(createSquare());
+            }
+        }
+        initSquares(100);
+    
+        // Sparkle particle generator
+        function createSparkles(x, y, color, numSparkles = 20) {
+            for (let i = 0; i < numSparkles; i++) {
+                sparkles.push({
+                    x: x,
+                    y: y,
+                    size: Math.random() * 3 + 1,
+                    xVel: (Math.random() - 0.5) * 4,
+                    yVel: (Math.random() - 0.5) * 4,
+                    alpha: 1,
+                    decay: Math.random() * 0.02 + 0.01,
+                    color: color
+                });
+            }
+        }
+    
+        // Update squares
+        function updateSquares() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (const square of squares) {
+                square.x += square.xVel;
+                square.y += square.yVel;
+    
+                if (square.x <= 0 || square.x + square.size >= canvas.width) square.xVel *= -1;
+                if (square.y <= 0 || square.y + square.size >= canvas.height) square.yVel *= -1;
+    
+                square.size += square.sizeChange;
+                if (square.size <= 5 || square.size >= 20) square.sizeChange *= -1;
+            
+                ctx.fillStyle = square.color;
+                ctx.fillRect(square.x, square.y, square.size, square.size);
+            }
+        }
+    
+        // Update sparkles
+        function updateSparkles() {
+            for (const sparkle of sparkles) {
+                sparkle.x += sparkle.xVel;
+                sparkle.y += sparkle.yVel;
+                sparkle.alpha -= sparkle.decay;
+            }
+            // Remove faded sparkles
+            sparkles = sparkles.filter(s => s.alpha > 0);
+        }
+    
+        // Draw everything
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+            // Draw squares
+            for (const square of squares) {
+                ctx.fillStyle = square.color;
+                ctx.fillRect(square.x, square.y, square.size, square.size);
+            }
+    
+            // Draw sparkles
+            for (const sparkle of sparkles) {
+                ctx.globalAlpha = sparkle.alpha;
+                ctx.fillStyle = sparkle.color;
+                ctx.fillRect(sparkle.x, sparkle.y, sparkle.size, sparkle.size);
+            }
+            ctx.globalAlpha = 1.0;
+        }
+    
+        // Main animation loop
+        function animate() {
+            updateSquares();
+            updateSparkles();
+            draw();
+            requestAnimationFrame(animate);
+        }
+        animate();
+    
+        // Detect clicks on squares
+        canvas.addEventListener('click', (event) => {
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = event.clientX - rect.left;
+            const mouseY = event.clientY - rect.top;
+    
+            // Find if a square was clicked
+            for (let i = squares.length - 1; i >= 0; i--) {
+                const s = squares[i];
+                if (
+                    mouseX >= s.x &&
+                    mouseX <= s.x + s.size &&
+                    mouseY >= s.y &&
+                    mouseY <= s.y + s.size
+                ) {
+                    // Create sparkles at the square’s position
+                    createSparkles(s.x + s.size / 2, s.y + s.size / 2, s.color, 25);
+                    // Remove square
+                    squares.splice(i, 1);
+                    break;
+                }
+            }
+        });
+        animationInterval = setInterval(updateSquares, 30); // Update canvas every 30 ms
+
+    </script>    
+</body>
+</html>

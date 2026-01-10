@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Enter Password</title>
+</head>
+<body>
+  <h2>Enter Access Key</h2>
+  <input type="password" id="pw" />
+
+  <button onclick="check()">Enter</button>
+
+  <script>
+    function check() {
+      const correct = "McintyreCreek";   // NOT secure
+      const entered = document.getElementById("pw").value;
+
+      if (entered === correct) {
+        localStorage.setItem("access", "true");
+        window.location.href = "index.html";
+      } else {
+        alert("Incorrect key");
+      }
+    }
+  </script>
+</body>
+</html>
