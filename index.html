@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
- <script>
+<head>  
+    <script>
         if (localStorage.getItem("accessGranted") !== "true") {
-          window.location.href = "WelcomeCI.html";
+          window.location.replace("WelcomeCI.html");
         }
- </script>
+      </script>
       
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -193,11 +193,6 @@
 
         // Start the animation
         animationInterval = setInterval(updateSquares, 30); // Update canvas every 30 ms
-
-        // Password
-          if (localStorage.getItem("access") !== "true") {
-            window.location.href = "index.html";
-            }
     </script>
 </body>
 </html>

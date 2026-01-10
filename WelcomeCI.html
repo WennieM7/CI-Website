@@ -6,20 +6,23 @@
 <body>
   <h2>Enter Access Key</h2>
   <input type="password" id="pw" />
-  <button onclick="check()">Enter</button>
+  <button id="enterBtn">Enter</button>
 
   <script>
-    function check() {
+      document.getElementById("enterBtn").addEventListener("click", function () {
       const correct = "McintyreCreek";   // NOT secure
       const entered = document.getElementById("pw").value;
 
       if (entered === correct) {
-        localStorage.setItem("access", "true");
-        window.location.href = "index.html";
+        localStorage.setItem("accessGranted", "true");
+
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 50);
       } else {
         alert("Incorrect key");
       }
-    }
+    });
   </script>
 </body>
 </html>
