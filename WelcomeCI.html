@@ -15,10 +15,7 @@
 
       if (entered === correct) {
         localStorage.setItem("accessGranted", "true");
-
-        setTimeout(() => {
-          window.location.href = "index.html";
-        }, 50);
+        window.location.href = "index.html";
       } else {
         alert("Incorrect key");
       }
